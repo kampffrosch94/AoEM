@@ -24,6 +24,7 @@ func _input(event):
 			var pos = camera.get_actual_pos(event.pos)
 			if((pos.x >= get_pos().x )  and (pos.y >= get_pos().y )  and (pos.x <= get_pos().x + width ) and (pos.y <= get_pos().y + height) ):
 				print ("Click Actor")
+				map.set_lastclickedactor(self)
 				get_tree().set_input_as_handled()
 
 
