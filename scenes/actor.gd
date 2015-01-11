@@ -45,7 +45,8 @@ func move_to_coord(coord):
 
 func _process(delta):
 	var newdirection = get_direction(get_pos(),goalpos)
-	if(direction == newdirection):
+	if(direction != -newdirection):
+		direction = newdirection
 		var tomove = delta * direction * movespeed
 		set_pos(tomove + get_pos())
 	else:
