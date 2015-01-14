@@ -15,17 +15,15 @@ func _ready():
 	height = get_texture().get_height()
 	camera = get_node("../camera")
 	map = get_node("/root/map")
+	map.add_actor(self)
 	goalpos = get_pos()
-	set_process_input(true)
-	
-func _input(event):
-	if((event.type==InputEvent.MOUSE_BUTTON)):
-		if((event.button_index == 1) and event.is_pressed()): 
-			var pos = camera.get_actual_pos(event.pos)
-			if((pos.x >= get_pos().x )  and (pos.y >= get_pos().y )  and (pos.x <= get_pos().x + width ) and (pos.y <= get_pos().y + height) ):
-				print ("Click Actor")
-				map.set_lastclickedactor(self)
-				get_tree().set_input_as_handled()
+
+
+func on_click():
+	print ("Click Actor")
+	map.set_lastclickedactor(self)
+
+
 
 
 func get_direction(start,goal): #returns the directionalvector from one point to another
