@@ -141,7 +141,7 @@ class Pathfinder:
 					continue
 				var tentative_G = current.G + 1
 				
-				if (not neighbor in open) or (neighbor.G < tentative_G) :
+				if (not neighbor in open) or (neighbor.G > tentative_G) :
 					came_from[neighbor.pos] = current.pos
 					neighbor.G = tentative_G
 					neighbor.H = distance(neighbor.pos,goal.pos)
