@@ -14,19 +14,20 @@ func _ready():
 
 	#tests for pathfinder
 	print("Beginn Pathfinder tests")
-	var pf = Pathfinder.new(3,3,self)
+	var pf = Pathfinder.new(10,10,self)
 	
 
 	#pf.print_all_tiles()
-	
-	var path = pf.findpath(Vector2(0,0), Vector2(0,1))
+	var start = Vector2(0,0)
+	var goal = Vector2(3,7)
+	var path = pf.findpath(start, goal)
 	if path == null:
 		print ("Path is null")
 	else:
-		print ("Pathstart" )
+		print ("Pathstart, from: ", start ," to: ", goal )
 		for part in path:
-			print(part)
-		print ("Pathend" )
+			print(part, "  Blocked?: ", is_cell_blocking(part))
+		print ("Pathend, length: ", path.size() )
 	
 
 
@@ -132,6 +133,9 @@ class Pathfinder:
 			open.erase(current)
 			closed.append(current)
 			
+			if current.blocked:
+				continue
+			
 			for neighbor in get_neighbors(current):
 				if neighbor in closed:
 					continue
@@ -147,7 +151,7 @@ class Pathfinder:
 		return null
 	
 	func get_tile(pos):
-		if (pos.x in range(-width,width+1)) and (pos.y in range(-height,height+1)) : 
+		if (pos.x <= width and pos.x >= -width) and (pos.y >= -height and pos.y <= height) : 
 			return tiles[pos]
 		else:
 			print ("Return null Pos :" , pos)
@@ -171,11 +175,13 @@ class Pathfinder:
 		var path = []
 		while(current.pos in came_from.keys()):
 			path.append(current.pos)
-			current = came_from(current)
-		var reversepath = [] # from start to goal
-		for part in reverse(path):
-			reversepath.append(part)
-		return reversepath
-		
+			var nextpos = came_from[current.pos]
+			current = tiles[nextpos]
+		return reversearray(path)
 	
+	func reversearray(array):
+		var reverse = []
+		for i in range(array.size()):
+			reverse.append(array[array.size() - 1 - i])
+		return reverse
 	
