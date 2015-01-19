@@ -40,6 +40,17 @@ func move_to_coord(coord):
 	direction = get_direction(get_pos(),goalpos)
 	set_process(true)
 
+var movepath = null
+
+func move_along_path(path):
+	if path != null:
+		move_to_coord(path[0])
+		path.remove(0)
+		movepath = path
+	else:
+		print ("Path is null")
+	
+
 
 func _process(delta):
 	var newdirection = get_direction(get_pos(),goalpos)
@@ -51,6 +62,9 @@ func _process(delta):
 	else:
 		set_pos(goalpos)
 		set_process(false)
+		if movepath != null and !movepath.empty():
+			move_to_coord(movepath[0])
+			movepath.remove(0)
 
 func _on_Button_pressed():
 	var coord = Vector2(0,0)

@@ -7,6 +7,8 @@ var blockingtiles
 var actors = null
 var lastclickedactor = null
 
+var pf
+
 func _ready():
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
@@ -14,20 +16,22 @@ func _ready():
 
 	#tests for pathfinder
 	print("Beginn Pathfinder tests")
-	var pf = Pathfinder.new(10,10,self)
+	pf = Pathfinder.new(20,20,self)
 	
 
-	#pf.print_all_tiles()
-	var start = Vector2(0,0)
-	var goal = Vector2(3,7)
-	var path = pf.findpath(start, goal)
-	if path == null:
-		print ("Path is null")
-	else:
-		print ("Pathstart, from: ", start ," to: ", goal )
-		for part in path:
-			print(part, "  Blocked?: ", is_cell_blocking(part))
-		print ("Pathend, length: ", path.size() )
+
+#	path = pf.findpath(start, goal)
+#	
+#	var start = Vector2(0,0)
+#	var goal = Vector2(3,7)
+#	pf.print_all_tiles()
+#	if path == null:
+#		print ("Path is null")
+#	else:
+#		print ("Pathstart, from: ", start ," to: ", goal )
+#		for part in path:
+#			print(part, "  Blocked?: ", is_cell_blocking(part))
+#		print ("Pathend, length: ", path.size() )
 	
 
 
@@ -64,7 +68,8 @@ func _input(event):
 				print ("lastclickedactor: ", lastclickedactor)
 				if (lastclickedactor != null) and (!is_cell_blocking(pos)):
 					print("Move Actor")
-					lastclickedactor.move_to_coord(pos)
+					var path = pf.findpath(world_to_map(lastclickedactor.get_pos()),pos)
+					lastclickedactor.move_along_path(path)
 					lastclickedactor = null
 
 
@@ -159,6 +164,7 @@ class Pathfinder:
 	
 	func get_neighbors(middle):
 		var neighbors = []
+		
 		
 		for i in range(-1,2): # -1 and 0 and 1
 			for e in range(-1,2):
