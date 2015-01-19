@@ -166,10 +166,14 @@ class Pathfinder:
 		var neighbors = []
 		
 		
-		for i in range(-1,2): # -1 and 0 and 1
-			for e in range(-1,2):
-				if not (i == 0 and e == 0):
-					neighbors.append( get_tile(middle.pos + Vector2(i,e))) 
+		neighbors.append( get_tile(middle.pos + Vector2(-1,0))) 
+		neighbors.append( get_tile(middle.pos + Vector2(1,0))) 
+		neighbors.append( get_tile(middle.pos + Vector2(0,1))) 
+		neighbors.append( get_tile(middle.pos + Vector2(0,-1))) 
+		neighbors.append( get_tile(middle.pos + Vector2(-1,1))) 
+		neighbors.append( get_tile(middle.pos + Vector2(1,1))) 
+		neighbors.append( get_tile(middle.pos + Vector2(1,-1))) 
+		neighbors.append( get_tile(middle.pos + Vector2(-1,-1))) 
 		
 		while neighbors.find(null) != -1:
 			neighbors.erase(null)

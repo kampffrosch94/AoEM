@@ -61,10 +61,12 @@ func _process(delta):
 		set_pos(tomove + get_pos())
 	else:
 		set_pos(goalpos)
-		set_process(false)
 		if movepath != null and !movepath.empty():
 			move_to_coord(movepath[0])
 			movepath.remove(0)
+		else :
+			set_pos(goalpos)
+			set_process(false)
 
 func _on_Button_pressed():
 	var coord = Vector2(0,0)
