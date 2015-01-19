@@ -17,22 +17,7 @@ func _ready():
 	#tests for pathfinder
 	print("Beginn Pathfinder tests")
 	pf = Pathfinder.new(20,20,self)
-	
 
-
-#	path = pf.findpath(start, goal)
-#	
-#	var start = Vector2(0,0)
-#	var goal = Vector2(3,7)
-#	pf.print_all_tiles()
-#	if path == null:
-#		print ("Path is null")
-#	else:
-#		print ("Pathstart, from: ", start ," to: ", goal )
-#		for part in path:
-#			print(part, "  Blocked?: ", is_cell_blocking(part))
-#		print ("Pathend, length: ", path.size() )
-	
 
 
 
@@ -45,6 +30,15 @@ func add_actor(actor):
 
 func is_cell_blocking(pos):
 	return (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 )
+#	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
+#		return true
+#	else:
+#		var actorposis = []
+#		for actor in actors:
+#			actorposis.append(world_to_map(actor.get_pos()))
+#		if pos in actorposis :
+#			return true
+#	return false
 
 
 func set_lastclickedactor(actor):
@@ -68,9 +62,15 @@ func _input(event):
 				print ("lastclickedactor: ", lastclickedactor)
 				if (lastclickedactor != null) and (!is_cell_blocking(pos)):
 					print("Move Actor")
-					var path = pf.findpath(world_to_map(lastclickedactor.get_pos()),pos)
-					lastclickedactor.move_along_path(path)
-					lastclickedactor = null
+					var start = world_to_map(lastclickedactor.get_pos())
+					pf.tiles[start].blocked = false
+					var path = pf.findpath(start,pos)
+					if path != null:
+						pf.tiles[pos].blocked = true
+						lastclickedactor.move_along_path(path)
+						lastclickedactor = null
+					else:
+						pf.tiles[start].blocked = true
 
 
 class Pathfinder:
