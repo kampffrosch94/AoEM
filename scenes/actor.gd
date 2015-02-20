@@ -1,18 +1,16 @@
 extends Sprite
 
-var width
-var height
 var map
 var camera
-
+var char
 
 const movespeed = 100 #how many pixel per second does the sprite move
 var goalpos #goalposition of the sprite
 var direction #towards goalpos
 
 func _ready():
-	width = get_texture().get_width()
-	height = get_texture().get_height()
+	var characterFactoryNode = get_node("/root/character")
+	char =  characterFactoryNode.Playercharacter.new()
 	camera = get_node("../camera")
 	map = get_node("/root/map")
 	map.add_actor(self)
@@ -20,8 +18,12 @@ func _ready():
 
 
 func on_click():
-	print ("Click Actor")
-	map.set_lastclickedactor(self)
+	if(char.is_pc()):
+		print ("Click PC")
+		map.set_lastclickedpc(self)
+	else:
+		print ("Click Enemy")
+	
 
 
 
@@ -77,3 +79,5 @@ func _on_Button_2_pressed():
 	var coord = Vector2(0,5)
 	goalpos = map.map_to_world(coord)
 	set_pos(goalpos)
+
+
