@@ -51,16 +51,16 @@ func add_actor(actor):
 		actors.append(actor)
 
 func is_cell_blocking(pos):
-	return (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 )
-#	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
-#		return true
-#	else:
-#		var actorposis = []
-#		for actor in actors:
-#			actorposis.append(world_to_map(actor.get_pos()))
-#		if pos in actorposis :
-#			return true
-#	return false
+#	return (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 )
+	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
+		return true
+	elif(actors != null):
+		var actorposis = []
+		for actor in actors:
+			actorposis.append(world_to_map(actor.get_pos()))
+		if pos in actorposis :
+			return true
+	return false
 
 
 func set_lastclickedpc(actor):
@@ -85,6 +85,7 @@ func _input(event):
 				if (lastclickedpc != null) and (!is_cell_blocking(pos)):
 					print("Move Actor")
 					var start = world_to_map(lastclickedpc.get_pos())
+					pf.update_blocking()
 					pf.tiles[start].blocked = false
 					var path = pf.findpath(start,pos)
 					if path != null:
@@ -107,12 +108,15 @@ class Pathfinder:
 			blocked = b
 			G = 9999999999999
 			F = G 
+		
 	
 	var tiles #dict of all the tiles, key is pos
 	var width
 	var height
+	var map
 	
-	func _init(width, height, map):
+	func _init(width, height, smap):
+		map = smap
 		self.width = width
 		self.height = height
 		tiles = {}
@@ -121,6 +125,13 @@ class Pathfinder:
 				var pos = Vector2(w,h)
 				var newtile = Tile.new(pos,map.is_cell_blocking(pos))
 				tiles[pos] = newtile
+	
+	func update_blocking():
+		for w in range(-width,width + 1):
+			for h in range(-height,height + 1):
+				var pos = Vector2(w,h)
+				tiles[pos].blocked = map.is_cell_blocking(pos)
+	
 	
 	func print_all_tiles():
 		for w in range(-width,width + 1):
@@ -203,7 +214,6 @@ class Pathfinder:
 		
 
 	func reconstructpath(current,came_from):
-		print ("Path is getting reconstructed")
 		var path = []
 		while(current.pos in came_from.keys()):
 			path.append(current.pos)
