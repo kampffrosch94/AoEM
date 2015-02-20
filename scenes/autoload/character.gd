@@ -4,22 +4,24 @@ func _ready():
 	pass
 
 
+func createCharacter(hp,dmg,fac):
+	return Character.new(hp,dmg,fac,get_node("/root/global"))
+
 class Character:
 	var hp
 	var dmg
-	func _init():
+	var factionid
+	var globalnode
+	
+	func _init(shp , sdmg, sfac , sglobalnode):
 		hp  = 10
 		dmg = 2
+		factionid = sfac
+		globalnode = sglobalnode
 
 	func is_pc():
-		return false
-
-
-class Playercharacter:
-	extends Character
-	func is_pc():
-		return true
-
-class Enemy:
-	extends Character
+		if factionid == globalnode.playerfactionid : 
+			return true
+		else:
+			return false
 

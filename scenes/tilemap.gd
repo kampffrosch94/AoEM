@@ -5,7 +5,7 @@ var camera
 var blockingtiles
 
 var actors = null
-var lastclickedactor = null
+var lastclickedpc = null
 
 var pf
 
@@ -18,6 +18,28 @@ func _ready():
 	print("Beginn Pathfinder tests")
 	pf = Pathfinder.new(20,20,self)
 
+	#create Actors
+
+	var pcf = get_node("/root/character")
+
+	var char  = pcf.createCharacter(10,2,0)
+	var texture = load("res://gfx/player/base/human_m.png")
+	createActor(texture,char, 1,1)
+	
+	var char  = pcf.createCharacter(10,2,1)
+	var texture = load("res://gfx/dc-mon/siren.png")
+	createActor(texture,char, 3,3)
+	
+	
+
+
+func createActor(texture, char, x,y):
+	var actorres = load("res://scenes/actor.scn")
+	var apc = actorres.instance()
+	apc.init(texture,char)
+	var pos = Vector2(x,y)	
+	apc.set_pos(map_to_world(pos))
+	add_child(apc)
 
 
 
@@ -41,8 +63,8 @@ func is_cell_blocking(pos):
 #	return false
 
 
-func set_lastclickedactor(actor):
-	lastclickedactor = actor
+func set_lastclickedpc(actor):
+	lastclickedpc = actor
 
 func _input(event):
 	if event.type==InputEvent.MOUSE_BUTTON:
@@ -59,16 +81,16 @@ func _input(event):
 				foundactor.on_click()
 			else:
 				print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
-				print ("lastclickedactor: ", lastclickedactor)
-				if (lastclickedactor != null) and (!is_cell_blocking(pos)):
+				print ("lastclickedpc: ", lastclickedpc)
+				if (lastclickedpc != null) and (!is_cell_blocking(pos)):
 					print("Move Actor")
-					var start = world_to_map(lastclickedactor.get_pos())
+					var start = world_to_map(lastclickedpc.get_pos())
 					pf.tiles[start].blocked = false
 					var path = pf.findpath(start,pos)
 					if path != null:
 						pf.tiles[pos].blocked = true
-						lastclickedactor.move_along_path(path)
-						lastclickedactor = null
+						lastclickedpc.move_along_path(path)
+						lastclickedpc = null
 					else:
 						pf.tiles[start].blocked = true
 

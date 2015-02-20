@@ -1,17 +1,19 @@
 extends Sprite
 
 var map
-var camera
 var char
 
 const movespeed = 100 #how many pixel per second does the sprite move
 var goalpos #goalposition of the sprite
 var direction #towards goalpos
 
+func init(bodytexture,schar):
+	char = schar;
+	set_texture(bodytexture)
+
+
 func _ready():
-	var characterFactoryNode = get_node("/root/character")
-	char =  characterFactoryNode.Playercharacter.new()
-	camera = get_node("../camera")
+
 	map = get_node("/root/map")
 	map.add_actor(self)
 	goalpos = get_pos()
