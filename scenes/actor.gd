@@ -1,15 +1,19 @@
 extends Sprite
 
 var map
+
 var char
+var coord
+
 
 const movespeed = 100 #how many pixel per second does the sprite move
 var goalpos #goalposition of the sprite
 var direction #towards goalpos
 
-func init(bodytexture,schar):
+func init(bodytexture,schar, scoord):
 	char = schar;
 	set_texture(bodytexture)
+	coord = scoord
 
 
 func _ready():
@@ -39,8 +43,9 @@ func get_direction(start,goal): #returns the directionalvector from one point to
 		direction.y = diff.y / abs(diff.y)
 	return direction
 
-func move_to_coord(coord):
-	goalpos = map.map_to_world(coord)
+func move_to_coord(scoord):
+	coord = scoord
+	goalpos = map.map_to_world(scoord)
 	direction = get_direction(get_pos(),goalpos)
 	set_process(true)
 

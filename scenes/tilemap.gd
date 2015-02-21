@@ -36,8 +36,9 @@ func _ready():
 func createActor(texture, char, x,y):
 	var actorres = load("res://scenes/actor.scn")
 	var apc = actorres.instance()
-	apc.init(texture,char)
 	var pos = Vector2(x,y)	
+	
+	apc.init(texture,char, pos)
 	apc.set_pos(map_to_world(pos))
 	add_child(apc)
 
@@ -103,12 +104,14 @@ class Pathfinder:
 		var H # estimate of pathcost to goal
 		var G # pathcost of already traveled path
 		var F # G + H
+		var cost
 		var blocked 
 		func _init(startpos, b = false):
 			pos = startpos
 			blocked = b
 			G = 9999999999999
 			F = G 
+			cost = 1
 		
 	
 	var tiles #dict of all the tiles, key is pos
@@ -178,7 +181,7 @@ class Pathfinder:
 			for neighbor in get_neighbors(current):
 				if neighbor in closed:
 					continue
-				var tentative_G = current.G + 1
+				var tentative_G = current.G + current.cost
 				
 				if (not neighbor in open) or (neighbor.G > tentative_G) :
 					came_from[neighbor.pos] = current.pos
