@@ -26,7 +26,7 @@ func _ready():
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,1)
 	
-	var char  = pcf.createCharacter(10,2,1)
+	var char  = pcf.createCharacter(4,1,1)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 	
@@ -42,14 +42,14 @@ func createActor(texture, char, x,y):
 	apc.set_pos(map_to_world(pos))
 	add_child(apc)
 
-
-
-
 func add_actor(actor):
 	if actors == null:
 		actors = [actor]
 	else:
 		actors.append(actor)
+
+func remove_actor(actor):
+	actors.erase(actor)
 
 func is_cell_blocking(pos):
 	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
@@ -66,7 +66,7 @@ func is_cell_blocking(pos):
 func set_lastclickedpc(actor):
 	lastclickedpc = actor
 
-func findactoratpos(pos):
+func findactoratcoord(pos):
 	for actor in actors :
 		var actorpos = world_to_map(actor.get_pos())
 		if pos == actorpos:
@@ -77,7 +77,7 @@ func _input(event):
 	if event.type==InputEvent.MOUSE_BUTTON:
 		if (event.button_index == 1) and event.is_pressed():
 			var pos = world_to_map(camera.get_actual_pos(event.pos))
-			var foundactor = findactoratpos(pos)
+			var foundactor = findactoratcoord(pos)
 			if foundactor != null:
 				clickactor(foundactor)
 			else:
@@ -86,26 +86,29 @@ func _input(event):
 func clickactor(actor):
 	if actor.char.is_pc():
 		print ("Clicked PC")
-		lastclickedpc = actor
+		set_lastclickedpc(actor)
 	else:
 		print ("Clicked Enemy")
+		if lastclickedpc != null:
+			var path = pf.findpath(lastclickedpc.coord, actor.coord)
+			if(path != null):
+				path.remove(path.size()-1)
+				if path != []:
+					lastclickedpc.move_along_path(path)
+				lastclickedpc.char.attack(actor.char)
+				set_lastclickedpc(null)
 
 func clicktile(pos):
 	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
 	print ("lastclickedpc: ", lastclickedpc)
 	if (lastclickedpc != null) and (!is_cell_blocking(pos)):
-		print("Move Actor")
-		var start = world_to_map(lastclickedpc.get_pos())
-		pf.update_blocking()
-		pf.tiles[start].blocked = false
+		print("Move Actor of PC")
+		var start = lastclickedpc.coord
+		
 		var path = pf.findpath(start,pos)
 		if path != null:
-			pf.tiles[pos].blocked = true
 			lastclickedpc.move_along_path(path)
-			lastclickedpc = null
-		else:
-			pf.tiles[start].blocked = true
-
+			set_lastclickedpc(null)
 
 class Pathfinder:
 	class Tile:
@@ -162,6 +165,9 @@ class Pathfinder:
 	
 	
 	func findpath(startpos,goalpos):
+	
+		update_blocking()
+		
 		var start = tiles[startpos]
 		var goal = tiles[goalpos]
 		var came_from = {}
@@ -171,6 +177,8 @@ class Pathfinder:
 		start.H = distance(startpos,goalpos)
 		start.G = 0
 		start.F = start.G + start.H
+		
+		start.blocked = false #the moving guy shouldnt block himself
 		
 		while !open.empty():
 			var current = open[0]

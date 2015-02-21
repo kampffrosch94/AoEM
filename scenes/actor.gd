@@ -12,6 +12,7 @@ var direction #towards goalpos
 
 func init(bodytexture,schar, scoord):
 	char = schar;
+	char.actor = self
 	set_texture(bodytexture)
 	coord = scoord
 
@@ -21,6 +22,9 @@ func _ready():
 	map = get_node("/root/map")
 	map.add_actor(self)
 	goalpos = get_pos()
+
+func _exit_tree():
+	map.remove_actor(self)
 
 
 func get_direction(start,goal): #returns the directionalvector from one point to another

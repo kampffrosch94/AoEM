@@ -12,13 +12,14 @@ class Character:
 	var dmg
 	var factionid
 	var globalnode
+	var actor = null
 	
 	func _init(shp , sdmg, sfac , sglobalnode):
-		hp  = 10
-		dmg = 2
+		hp  = shp
+		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
-
+	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 
 			return true
@@ -30,4 +31,14 @@ class Character:
 	
 	func beattacked(edmg):
 		hp = hp - edmg
+		print ("New hp: ",hp)
+		if hp <= 0 :
+			defeated()
+	
+	func defeated():
+		print ("U is kill.")
+		if actor != null:
+			actor.queue_free()
+			#actor.get_parent().remove_and_delete_child(actor)
+			actor = null
 
