@@ -52,7 +52,6 @@ func add_actor(actor):
 		actors.append(actor)
 
 func is_cell_blocking(pos):
-#	return (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 )
 	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
 		return true
 	elif(actors != null):
@@ -80,22 +79,32 @@ func _input(event):
 			var pos = world_to_map(camera.get_actual_pos(event.pos))
 			var foundactor = findactoratpos(pos)
 			if foundactor != null:
-				foundactor.on_click()
+				clickactor(foundactor)
 			else:
-				print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
-				print ("lastclickedpc: ", lastclickedpc)
-				if (lastclickedpc != null) and (!is_cell_blocking(pos)):
-					print("Move Actor")
-					var start = world_to_map(lastclickedpc.get_pos())
-					pf.update_blocking()
-					pf.tiles[start].blocked = false
-					var path = pf.findpath(start,pos)
-					if path != null:
-						pf.tiles[pos].blocked = true
-						lastclickedpc.move_along_path(path)
-						lastclickedpc = null
-					else:
-						pf.tiles[start].blocked = true
+				clicktile(pos)
+
+func clickactor(actor):
+	if actor.char.is_pc():
+		print ("Clicked PC")
+		lastclickedpc = actor
+	else:
+		print ("Clicked Enemy")
+
+func clicktile(pos):
+	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
+	print ("lastclickedpc: ", lastclickedpc)
+	if (lastclickedpc != null) and (!is_cell_blocking(pos)):
+		print("Move Actor")
+		var start = world_to_map(lastclickedpc.get_pos())
+		pf.update_blocking()
+		pf.tiles[start].blocked = false
+		var path = pf.findpath(start,pos)
+		if path != null:
+			pf.tiles[pos].blocked = true
+			lastclickedpc.move_along_path(path)
+			lastclickedpc = null
+		else:
+			pf.tiles[start].blocked = true
 
 
 class Pathfinder:

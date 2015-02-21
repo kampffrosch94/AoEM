@@ -23,17 +23,6 @@ func _ready():
 	goalpos = get_pos()
 
 
-func on_click():
-	if(char.is_pc()):
-		print ("Click PC")
-		map.set_lastclickedpc(self)
-	else:
-		print ("Click Enemy")
-	
-
-
-
-
 func get_direction(start,goal): #returns the directionalvector from one point to another
 	var diff = goal - start
 	var direction = Vector2(0,0)
@@ -76,15 +65,5 @@ func _process(delta):
 		else :
 			set_pos(goalpos)
 			set_process(false)
-
-func _on_Button_pressed():
-	var coord = Vector2(0,0)
-	move_to_coord(coord)
-
-
-func _on_Button_2_pressed():
-	var coord = Vector2(0,5)
-	goalpos = map.map_to_world(coord)
-	set_pos(goalpos)
 
 
