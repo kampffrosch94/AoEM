@@ -24,4 +24,10 @@ class Character:
 			return true
 		else:
 			return false
+			
+	func attack(char):
+		char.beattacked(dmg)
+	
+	func beattacked(edmg):
+		hp = hp - edmg
 

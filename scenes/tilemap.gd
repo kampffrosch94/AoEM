@@ -66,17 +66,18 @@ func is_cell_blocking(pos):
 func set_lastclickedpc(actor):
 	lastclickedpc = actor
 
+func findactoratpos(pos):
+	for actor in actors :
+		var actorpos = world_to_map(actor.get_pos())
+		if pos == actorpos:
+			return actor
+	return null
+
 func _input(event):
 	if event.type==InputEvent.MOUSE_BUTTON:
 		if (event.button_index == 1) and event.is_pressed():
 			var pos = world_to_map(camera.get_actual_pos(event.pos))
-			var foundactor = null
-			for actor in actors :
-				var actorpos = world_to_map(actor.get_pos())
-				print("Actorpos: ",actorpos)
-				if pos == actorpos:
-					foundactor = actor 
-					break
+			var foundactor = findactoratpos(pos)
 			if foundactor != null:
 				foundactor.on_click()
 			else:
