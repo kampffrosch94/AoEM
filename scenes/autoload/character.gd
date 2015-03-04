@@ -5,7 +5,7 @@ func _ready():
 
 
 func createCharacter(hp,dmg,fac):
-	return Character.new(hp,dmg,fac,get_node("/root/global"))
+	return Character.new(hp,dmg,5,fac,get_node("/root/global"))
 
 class Character:
 	var hp
@@ -14,11 +14,16 @@ class Character:
 	var globalnode
 	var actor = null
 	
-	func _init(shp , sdmg, sfac , sglobalnode):
+	var actionpoints
+	var maxactionpoints
+	
+	func _init(shp , sdmg, smaxactionpoints,sfac , sglobalnode):
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
+		maxactionpoints = smaxactionpoints
+		actionpoints = maxactionpoints
 	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 

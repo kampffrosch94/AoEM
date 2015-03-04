@@ -110,6 +110,7 @@ func clicktile(pos):
 			lastclickedpc.move_along_path(path)
 			set_lastclickedpc(null)
 
+
 class Pathfinder:
 	class Tile:
 		var pos = Vector2()

@@ -46,9 +46,12 @@ var movepath = null
 
 func move_along_path(path):
 	if path != null:
-		move_to_coord(path[0])
-		path.remove(0)
-		movepath = path
+		if path.size() <= char.actionpoints:
+			move_to_coord(path[0])
+			path.remove(0)
+			movepath = path
+		else:
+			print ("Not enough actionpoints")
 	else:
 		print ("Path is null")
 	

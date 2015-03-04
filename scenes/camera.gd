@@ -20,7 +20,6 @@ func _process(delta):
 		origpos = Input.get_mouse_pos() 
 	else:
 		firstpress = true
-		
 
 func get_actual_pos(pos): #Worldpos from event.pos
 	return pos * get_zoom() + get_pos() - OS.get_video_mode_size()/2 * get_zoom()
