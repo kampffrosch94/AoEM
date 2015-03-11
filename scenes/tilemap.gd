@@ -110,6 +110,12 @@ func clicktile(pos):
 			lastclickedpc.move_along_path(path)
 			set_lastclickedpc(null)
 
+func _on_endturnbutton_pressed():
+	if actors != null and actors.size() > 0:
+		for actor in actors:
+			actor.char.reset_ap()
+
+
 
 class Pathfinder:
 	class Tile:
@@ -249,3 +255,6 @@ class Pathfinder:
 			reverse.append(array[array.size() - 1 - i])
 		return reverse
 	
+
+
+

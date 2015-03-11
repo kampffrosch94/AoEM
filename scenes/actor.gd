@@ -48,13 +48,14 @@ func move_along_path(path):
 	if path != null:
 		if path.size() <= char.actionpoints:
 			move_to_coord(path[0])
+			char.pay_ap(path.size())
 			path.remove(0)
 			movepath = path
 		else:
 			print ("Not enough actionpoints")
 	else:
 		print ("Path is null")
-	
+
 
 
 func _process(delta):

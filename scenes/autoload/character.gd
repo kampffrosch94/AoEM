@@ -23,7 +23,7 @@ class Character:
 		factionid = sfac
 		globalnode = sglobalnode
 		maxactionpoints = smaxactionpoints
-		actionpoints = maxactionpoints
+		reset_ap()
 	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 
@@ -46,4 +46,10 @@ class Character:
 			actor.queue_free()
 			#actor.get_parent().remove_and_delete_child(actor)
 			actor = null
+	
+	func pay_ap(cost):
+		actionpoints = actionpoints - cost
+	
+	func reset_ap():
+		actionpoints = maxactionpoints
 
