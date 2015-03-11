@@ -46,9 +46,9 @@ var movepath = null
 
 func move_along_path(path):
 	if path != null:
-		if path.size() <= char.actionpoints:
+		if char.can_move(path.size()):
 			move_to_coord(path[0])
-			char.pay_ap(path.size())
+			char.pay_mp(path.size())
 			path.remove(0)
 			movepath = path
 		else:

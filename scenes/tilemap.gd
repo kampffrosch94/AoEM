@@ -111,9 +111,10 @@ func clicktile(pos):
 			set_lastclickedpc(null)
 
 func _on_endturnbutton_pressed():
+	print("End Turn (player)")
 	if actors != null and actors.size() > 0:
 		for actor in actors:
-			actor.char.reset_ap()
+			actor.char.end_turn()
 
 
 

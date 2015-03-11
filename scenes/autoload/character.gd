@@ -14,16 +14,16 @@ class Character:
 	var globalnode
 	var actor = null
 	
-	var actionpoints
-	var maxactionpoints
+	var movementpoints
+	var maxmovementpoints
 	
-	func _init(shp , sdmg, smaxactionpoints,sfac , sglobalnode):
+	func _init(shp , sdmg, smaxmovementpoints,sfac , sglobalnode):
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
-		maxactionpoints = smaxactionpoints
-		reset_ap()
+		maxmovementpoints = smaxmovementpoints
+		reset_mp()
 	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 
@@ -40,6 +40,13 @@ class Character:
 		if hp <= 0 :
 			defeated()
 	
+	func can_move(cost):
+		if(cost <= movementpoints):
+			return true
+		else:
+			return false
+	
+	
 	func defeated():
 		print ("U is kill.")
 		if actor != null:
@@ -47,9 +54,12 @@ class Character:
 			#actor.get_parent().remove_and_delete_child(actor)
 			actor = null
 	
-	func pay_ap(cost):
-		actionpoints = actionpoints - cost
+	func pay_mp(cost):
+		movementpoints = movementpoints - cost
 	
-	func reset_ap():
-		actionpoints = maxactionpoints
+	func reset_mp():
+		movementpoints = maxmovementpoints
+	
+	func end_turn():
+		reset_mp()
 
