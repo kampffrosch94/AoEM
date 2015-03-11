@@ -45,7 +45,7 @@ func move_to_coord(scoord):
 var movepath = null
 
 func move_along_path(path):
-	if path != null:
+	if path != null and path.size() > 0:
 		if char.can_move(path.size()):
 			move_to_coord(path[0])
 			char.pay_mp(path.size())
@@ -53,8 +53,20 @@ func move_along_path(path):
 			movepath = path
 		else:
 			print ("Not enough actionpoints")
-	else:
-		print ("Path is null")
+#	else:
+#		print ("Path is null")
+		
+
+func attackmove(target, path):
+	if path[path.size()-1] == target.coord:
+		path.remove(path.size() - 1)
+	
+	while not char.can_move(path.size()):
+		path.remove(path.size() - 1)
+	
+	move_along_path(path)
+	if char.can_act():
+		char.attack(target.char)
 
 
 

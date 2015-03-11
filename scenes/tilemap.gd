@@ -14,8 +14,6 @@ func _ready():
 	camera = get_node("camera")
 	set_process_input(true)
 
-	#tests for pathfinder
-	print("Beginn Pathfinder tests")
 	pf = Pathfinder.new(20,20,self)
 
 	#create Actors
@@ -93,9 +91,9 @@ func clickactor(actor):
 			var path = pf.findpath(lastclickedpc.coord, actor.coord)
 			if(path != null):
 				path.remove(path.size()-1)
-				if path != []:
-					lastclickedpc.move_along_path(path)
-				lastclickedpc.char.attack(actor.char)
+				lastclickedpc.move_along_path(path)
+				if lastclickedpc.char.can_act():
+					lastclickedpc.char.attack(actor.char)
 				set_lastclickedpc(null)
 
 func clicktile(pos):
@@ -114,8 +112,38 @@ func _on_endturnbutton_pressed():
 	print("End Turn (player)")
 	if actors != null and actors.size() > 0:
 		for actor in actors:
+			if actor.char.is_pc():
+				actor.char.end_turn()
+	enemy_turn()
+
+func enemy_turn():
+	for actor in actors:
+		if not actor.char.is_pc():
+			while actor.char.can_act():
+				enemy_act(actor)
+	
+	for actor in actors:
+		if not actor.char.is_pc():
 			actor.char.end_turn()
 
+func enemy_act(enemy):
+	var playeractors = {}
+	for actor in actors:
+		if actor.char.is_pc():
+			var path = pf.findpath(enemy.coord,actor.coord)
+			if path != null:
+				playeractors[actor] = path
+	
+	var nearestpa= null
+	for pa in playeractors:
+		if nearestpa == null:
+			nearestpa = pa
+		if playeractors[pa].size() < playeractors[nearestpa].size():
+			nearestpa = pa
+	
+	if nearestpa != null:
+		enemy.attackmove(nearestpa, playeractors[nearestpa])
+	
 
 
 class Pathfinder:

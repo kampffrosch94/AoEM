@@ -17,13 +17,18 @@ class Character:
 	var movementpoints
 	var maxmovementpoints
 	
+	var ap #actionpoints, for attacking atm
+	var maxap
+	
 	func _init(shp , sdmg, smaxmovementpoints,sfac , sglobalnode):
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
 		maxmovementpoints = smaxmovementpoints
+		maxap = 1
 		reset_mp()
+		reset_ap()
 	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 
@@ -32,6 +37,7 @@ class Character:
 			return false
 			
 	func attack(char):
+		ap = ap - 1
 		char.beattacked(dmg)
 	
 	func beattacked(edmg):
@@ -46,6 +52,11 @@ class Character:
 		else:
 			return false
 	
+	func can_act():
+		if ap > 0:
+			return true
+		else:
+			return false
 	
 	func defeated():
 		print ("U is kill.")
@@ -60,6 +71,10 @@ class Character:
 	func reset_mp():
 		movementpoints = maxmovementpoints
 	
+	func reset_ap():
+		ap = maxap
+	
 	func end_turn():
 		reset_mp()
+		reset_ap()
 
