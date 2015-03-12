@@ -14,18 +14,18 @@ class Character:
 	var globalnode
 	var actor = null
 	
-	var movementpoints
-	var maxmovementpoints
+	var mp
+	var maxmp
 	
 	var ap #actionpoints, for attacking atm
 	var maxap
 	
-	func _init(shp , sdmg, smaxmovementpoints,sfac , sglobalnode):
+	func _init(shp , sdmg, smaxmp,sfac , sglobalnode):
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
-		maxmovementpoints = smaxmovementpoints
+		maxmp = smaxmp
 		maxap = 1
 		reset_mp()
 		reset_ap()
@@ -39,6 +39,10 @@ class Character:
 	func attack(char):
 		ap = ap - 1
 		char.beattacked(dmg)
+		if(char.actor != null):
+			char.actor.update()
+		if(actor != null):
+			actor.update()
 	
 	func beattacked(edmg):
 		hp = hp - edmg
@@ -47,7 +51,7 @@ class Character:
 			defeated()
 	
 	func can_move(cost):
-		if(cost <= movementpoints):
+		if(cost <= mp):
 			return true
 		else:
 			return false
@@ -66,10 +70,10 @@ class Character:
 			actor = null
 	
 	func pay_mp(cost):
-		movementpoints = movementpoints - cost
+		mp = mp - cost
 	
 	func reset_mp():
-		movementpoints = maxmovementpoints
+		mp = maxmp
 	
 	func reset_ap():
 		ap = maxap

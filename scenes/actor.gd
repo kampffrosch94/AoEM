@@ -27,6 +27,11 @@ func _exit_tree():
 	map.remove_actor(self)
 
 
+func _draw():
+	draw_string ( get_node("/root/global").defaultfont, Vector2(22,10), str(char.hp), Color(255,0,0))
+	draw_string ( get_node("/root/global").defaultfont, Vector2(22,20), str(char.mp), Color(0,255,0))
+	draw_string ( get_node("/root/global").defaultfont, Vector2(22,30), str(char.ap), Color(0,0,255))
+
 func get_direction(start,goal): #returns the directionalvector from one point to another
 	var diff = goal - start
 	var direction = Vector2(0,0)
@@ -49,6 +54,7 @@ func move_along_path(path):
 		if char.can_move(path.size()):
 			move_to_coord(path[0])
 			char.pay_mp(path.size())
+			update()
 			path.remove(0)
 			movepath = path
 		else:
