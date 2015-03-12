@@ -24,10 +24,17 @@ func _ready():
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,1)
 	
+	var char  = pcf.createCharacter(10,2,0)
+	var texture = load("res://gfx/player/base/human_m.png")
+	createActor(texture,char, 1,2)
+	
 	var char  = pcf.createCharacter(4,1,1)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 	
+	var char  = pcf.createCharacter(4,1,1)
+	var texture = load("res://gfx/dc-mon/siren.png")
+	createActor(texture,char, 3,4)
 	
 
 
