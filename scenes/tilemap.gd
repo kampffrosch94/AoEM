@@ -121,6 +121,7 @@ func _on_endturnbutton_pressed():
 		for actor in actors:
 			if actor.char.is_pc():
 				actor.char.end_turn()
+				actor.update()
 	enemy_turn()
 
 func enemy_turn():
@@ -132,6 +133,7 @@ func enemy_turn():
 	for actor in actors:
 		if not actor.char.is_pc():
 			actor.char.end_turn()
+			actor.update()
 
 func enemy_act(enemy):
 	var playeractors = {}
