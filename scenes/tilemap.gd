@@ -12,7 +12,7 @@ var pf
 func _ready():
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
-	set_process_input(true)
+	set_process_unhandled_input(true)
 
 	pf = Pathfinder.new(20,20,self)
 
@@ -78,7 +78,7 @@ func findactoratcoord(pos):
 			return actor
 	return null
 
-func _input(event):
+func _unhandled_input(event):
 	if event.type==InputEvent.MOUSE_BUTTON:
 		if (event.button_index == 1) and event.is_pressed():
 			var pos = world_to_map(camera.get_actual_pos(event.pos))
