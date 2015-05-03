@@ -62,7 +62,7 @@ func is_cell_blocking(pos):
 	elif(actors != null):
 		var actorposis = []
 		for actor in actors:
-			actorposis.append(world_to_map(actor.get_pos()))
+			actorposis.append(actor.coord)
 		if pos in actorposis :
 			return true
 	return false
