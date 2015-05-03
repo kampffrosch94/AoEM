@@ -30,11 +30,11 @@ func _ready():
 	
 	var char  = pcf.createCharacter(4,1,1)
 	var texture = load("res://gfx/dc-mon/siren.png")
-	createActor(texture,char, 3,3)
+	createActor(texture,char, 3,2)
 	
 	var char  = pcf.createCharacter(4,1,1)
 	var texture = load("res://gfx/dc-mon/siren.png")
-	createActor(texture,char, 3,4)
+	createActor(texture,char, 3,3)
 	
 
 

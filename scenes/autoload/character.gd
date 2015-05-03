@@ -82,3 +82,9 @@ class Character:
 		reset_mp()
 		reset_ap()
 
+class ability:
+	var maintarget #possible positions to click on
+
+
+class effect:
+	var type
