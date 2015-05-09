@@ -2,6 +2,8 @@
 extends TileMap
 
 var camera
+var actionbar
+
 var blockingtiles
 
 var actors = null
@@ -12,27 +14,37 @@ var pf
 func _ready():
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
+	actionbar = get_node("camera/actionbar")
 	set_process_unhandled_input(true)
 
 	pf = Pathfinder.new(20,20,self)
 
 	#create Actors
+	var charscript = load("res://scenes/autoload/character.gd")
+	
+	var attack = charscript.Ability.new("regular Attack",load("res://gfx/spells/earth/maxwells_silver_hammer.png"),1)
+	var flame = charscript.Ability.new("regular Attack",load("res://gfx/spells/fire/flame_tongue.png"),3)
+	var heal = charscript.Ability.new("regular Attack",load("res://gfx/spells/necromancy/regeneration.png"),2)
 
-	var pcf = get_node("/root/character")
-
-	var char  = pcf.createCharacter(10,2,0)
+	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
+	char.add_ability(attack)
+	char.add_ability(flame)
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,1)
 	
-	var char  = pcf.createCharacter(10,2,0)
+	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
+	char.add_ability(attack)
+	char.add_ability(heal)
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,2)
 	
-	var char  = pcf.createCharacter(4,1,1)
+	var char  = charscript.Character.new(4,1,1,get_node("/root/global"))
+	char.add_ability(attack)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,2)
 	
-	var char  = pcf.createCharacter(4,1,1)
+	var char  = charscript.Character.new(4,1,1,get_node("/root/global"))
+	char.add_ability(attack)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 	
@@ -91,7 +103,7 @@ func _unhandled_input(event):
 func clickactor(actor):
 	if actor.char.is_pc():
 		print ("Clicked PC")
-		set_lastclickedpc(actor)
+		change_focus(actor)
 	else:
 		print ("Clicked Enemy")
 		if lastclickedpc != null:
@@ -102,6 +114,10 @@ func clickactor(actor):
 				if lastclickedpc.char.can_act():
 					lastclickedpc.char.attack(actor.char)
 				set_lastclickedpc(null)
+
+func change_focus(actor):
+	set_lastclickedpc(actor)
+	actionbar.load_abilities(actor.char)
 
 func clicktile(pos):
 	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))

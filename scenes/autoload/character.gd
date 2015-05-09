@@ -4,9 +4,6 @@ func _ready():
 	pass
 
 
-func createCharacter(hp,dmg,fac):
-	return Character.new(hp,dmg,5,fac,get_node("/root/global"))
-
 class Character:
 	var hp
 	var dmg
@@ -20,15 +17,20 @@ class Character:
 	var ap #actionpoints, for attacking atm
 	var maxap
 	
-	func _init(shp , sdmg, smaxmp,sfac , sglobalnode):
+	var abilities = []
+	
+	func _init(shp , sdmg,sfac,sglobalnode):
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
 		globalnode = sglobalnode
-		maxmp = smaxmp
+		maxmp = 5
 		maxap = 1
 		reset_mp()
 		reset_ap()
+	
+	func add_ability(ability):
+		abilities.append(ability)
 	
 	func is_pc():
 		if factionid == globalnode.playerfactionid : 
@@ -45,6 +47,9 @@ class Character:
 			actor.update()
 	
 	func beattacked(edmg):
+		takedmg(edmg)
+	
+	func takedmg(edmg):
 		hp = hp - edmg
 		print ("New hp: ",hp)
 		if hp <= 0 :
@@ -82,9 +87,46 @@ class Character:
 		reset_mp()
 		reset_ap()
 
-class ability:
-	var maintarget #possible positions to click on
+class Ability:
+	var name
+	var icon
+	
+	var maxrange
+	var effects =  []
+	
+	func _init(sname,sicon,smaxrange):
+		name = sname
+		icon = sicon
+		maxrange = smaxrange
+	
+	func add_effect(e):
+		effects.append(e)
+	
+	func use(user,target):
+		for effect in effects:
+			effect.use(user,target) 
 
 
-class effect:
+class Effect:
+	var terraineffect = false #if true it works on the mapfields, else only on characters
+	const dmg = 0
 	var type
+	var scaling
+	
+	func _init(stype,sscaling):
+		type = stype
+		scaling = sscaling
+	
+	func use(user,target):
+		if type == dmg:
+			target.takedmg(scaling.scale(user))
+
+class Scaling:
+	var base = 0
+	var dmgscaling = 0
+	
+	func scale(user):
+		return base + user.dmg * dmgscaling
+
+
+
