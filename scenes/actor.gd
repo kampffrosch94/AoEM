@@ -26,6 +26,16 @@ func _ready():
 func _exit_tree():
 	map.remove_actor(self)
 
+func add_equip(equiptexture):
+	var equipsprite = Sprite.new()
+	equipsprite.set_texture(equiptexture)
+	#equipsprite.set_pos(get_global_pos())
+	equipsprite.set_centered(false)
+	add_child(equipsprite)
+	
+	print ("Childpos: ", equipsprite.get_pos())
+
+
 
 func _draw():
 	draw_string ( get_node("/root/global").defaultfont, Vector2(22,10), str(char.hp), Color(255,0,0))

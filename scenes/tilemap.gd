@@ -23,14 +23,20 @@ func _ready():
 	var charscript = load("res://scenes/autoload/character.gd")
 	
 	var attack = charscript.Ability.new("regular Attack",load("res://gfx/spells/earth/maxwells_silver_hammer.png"),1)
-	var flame = charscript.Ability.new("regular Attack",load("res://gfx/spells/fire/flame_tongue.png"),3)
-	var heal = charscript.Ability.new("regular Attack",load("res://gfx/spells/necromancy/regeneration.png"),2)
+	var attackeffectscaling = charscript.Scaling.new()
+	attackeffectscaling.dmgscaling = 1
+	var attackeffect = charscript.Effect.new(0,attackeffectscaling)
+	attack.add_effect(attackeffect)
+	
+	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),3)
+	var heal = charscript.Ability.new("Heal",load("res://gfx/spells/necromancy/regeneration.png"),2)
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
 	char.add_ability(attack)
 	char.add_ability(flame)
 	var texture = load("res://gfx/player/base/human_m.png")
-	createActor(texture,char, 1,1)
+	var act = createActor(texture,char, 1,1)
+	act.add_equip(load("res://gfx/sword.png"))
 	
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
 	char.add_ability(attack)
@@ -58,6 +64,7 @@ func createActor(texture, char, x,y):
 	apc.init(texture,char, pos)
 	apc.set_pos(map_to_world(pos))
 	add_child(apc)
+	return apc
 
 func add_actor(actor):
 	if actors == null:
@@ -107,17 +114,23 @@ func clickactor(actor):
 	else:
 		print ("Clicked Enemy")
 		if lastclickedpc != null:
-			var path = pf.findpath(lastclickedpc.coord, actor.coord)
-			if(path != null):
-				path.remove(path.size()-1)
-				lastclickedpc.move_along_path(path)
-				if lastclickedpc.char.can_act():
-					lastclickedpc.char.attack(actor.char)
-				set_lastclickedpc(null)
+			var activeability = lastclickedpc.char.abilities[actionbar.get_selected()]
+			if activeability.maxrange == 1:
+				melee_ability_move(actor,activeability)
+			
 
 func change_focus(actor):
 	set_lastclickedpc(actor)
 	actionbar.load_abilities(actor.char)
+
+func melee_ability_move(actor,ability):
+	var path = pf.findpath(lastclickedpc.coord, actor.coord)
+	if(path != null):
+		path.remove(path.size()-1)
+		lastclickedpc.move_along_path(path)
+		if lastclickedpc.char.can_act():
+			ability.use(lastclickedpc.char,actor.char)
+		set_lastclickedpc(null)
 
 func clicktile(pos):
 	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))

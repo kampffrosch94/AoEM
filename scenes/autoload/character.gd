@@ -67,11 +67,14 @@ class Character:
 		else:
 			return false
 	
+	func update_actor():
+		if actor != null:
+			actor.update()
+	
 	func defeated():
 		print ("U is kill.")
 		if actor != null:
 			actor.queue_free()
-			#actor.get_parent().remove_and_delete_child(actor)
 			actor = null
 	
 	func pay_mp(cost):
@@ -120,10 +123,13 @@ class Effect:
 	func use(user,target):
 		if type == dmg:
 			target.takedmg(scaling.scale(user))
+		user.update_actor()
+		target.update_actor()
 
 class Scaling:
 	var base = 0
 	var dmgscaling = 0
+	
 	
 	func scale(user):
 		return base + user.dmg * dmgscaling
