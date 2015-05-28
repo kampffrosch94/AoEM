@@ -12,6 +12,18 @@ var lastclickedpc = null
 var pf
 
 func _ready():
+	#random tests
+	var start = Vector2(0,0)
+	var end = Vector2(3,5)
+	print(line(start,end))
+	print("End Test")
+	
+	
+	
+	#random tests end
+
+
+
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
 	actionbar = get_node("camera/actionbar")
@@ -183,6 +195,24 @@ func enemy_act(enemy):
 		enemy.attackmove(nearestpa, playeractors[nearestpa])
 	
 
+func line(start, end):
+	var vec = end - start
+	if abs(vec.x)  >= abs(vec.y) :
+		vec.y = abs(vec.y / vec.x ) * sign(vec.y)
+		vec.x = sign(vec.x)
+	else:
+		vec.x = abs(vec.x / vec.y) * sign(vec.x)
+		vec.y = sign(vec.y)
+	
+	var line = [start]
+	var currentpos = start
+	
+	while not end in line :
+		currentpos += vec
+		line.append(Vector2(round(currentpos.x),round(currentpos.y)))
+	
+	return line
+	
 
 class Pathfinder:
 	class Tile:
