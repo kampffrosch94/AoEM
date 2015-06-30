@@ -1,4 +1,4 @@
-
+#This is the actionbar, a contextmenu for the abilities of a selected character.
 extends HButtonArray
 
 

@@ -1,3 +1,8 @@
+#This class (TileMap) is the mainscene for a fight
+#It handles user input on the and graphical representation of the map,
+#aswell as the actors.
+#
+#It´s subclass Pathfinder handles pathfinding (with A*) 
 
 extends TileMap
 

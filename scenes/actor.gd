@@ -1,3 +1,7 @@
+#An actor is the graphical representation of a character
+#it handles the GUI stuff so that the character can focus on gameplay mechanics
+
+
 extends Sprite
 
 var map

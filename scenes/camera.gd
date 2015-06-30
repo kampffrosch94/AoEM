@@ -1,3 +1,6 @@
+#A basic camera to see a part of the tilemap.
+#Can be moved while clicking the middle mouse button.
+
 extends Camera2D
 
 var move = null

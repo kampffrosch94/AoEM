@@ -1,3 +1,7 @@
+#A character is as the name suggests the representation of a character.
+#It contains all the stats and abilities.
+#If the character has a visual representation (actor), it knows it.
+
 extends Node
 
 func _ready():
