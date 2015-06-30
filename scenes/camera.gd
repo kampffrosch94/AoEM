@@ -15,9 +15,9 @@ func _process(delta):
 		if(firstpress):
 			firstpress = false
 		else:
-			move = origpos - Input.get_mouse_pos()
+			move = origpos - get_viewport().get_mouse_pos()
 			set_pos(get_pos() + move)
-		origpos = Input.get_mouse_pos() 
+		origpos = get_viewport().get_mouse_pos()
 	else:
 		firstpress = true
 
