@@ -147,6 +147,7 @@ func melee_ability_move(actor,ability):
 		lastclickedpc.move_along_path(path)
 		if lastclickedpc.char.can_act():
 			ability.use(lastclickedpc.char,actor.char)
+			lastclickedpc.char.ap -= 1
 		set_lastclickedpc(null)
 
 func clicktile(pos):

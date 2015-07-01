@@ -42,13 +42,6 @@ class Character:
 		else:
 			return false
 			
-	func attack(char):
-		ap = ap - 1
-		char.beattacked(dmg)
-		if(char.actor != null):
-			char.actor.update()
-		if(actor != null):
-			actor.update()
 	
 	func beattacked(edmg):
 		takedmg(edmg)
