@@ -17,24 +17,22 @@ var lastclickedpc = null
 var pf
 
 func _ready():
-	#random tests
-	var start = Vector2(0,0)
-	var end = Vector2(3,5)
-	print(line(start,end))
-	print("End Test")
-	
-	
-	
-	#random tests end
-
-
-
+	#initialize
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
 	actionbar = get_node("camera/actionbar")
 	set_process_unhandled_input(true)
 
 	pf = Pathfinder.new(20,20,self)
+
+	#random tests
+	var start = Vector2(0,-1)
+	var end = Vector2(1,3)
+	print("line of sight:")
+	print(line_of_sight(start,end))
+	print("End Test")
+	#random tests end
+
 
 	#create Actors
 	var charscript = load("res://scenes/autoload/character.gd")
@@ -91,18 +89,6 @@ func add_actor(actor):
 
 func remove_actor(actor):
 	actors.erase(actor)
-
-func is_cell_blocking(pos):
-	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
-		return true
-	elif(actors != null):
-		var actorposis = []
-		for actor in actors:
-			actorposis.append(actor.coord)
-		if pos in actorposis :
-			return true
-	return false
-
 
 func set_lastclickedpc(actor):
 	lastclickedpc = actor
@@ -199,7 +185,23 @@ func enemy_act(enemy):
 	
 	if nearestpa != null:
 		enemy.attackmove(nearestpa, playeractors[nearestpa])
-	
+
+func is_cell_blocking(pos):
+	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):
+		return true
+	elif(actors != null):
+		var actorposis = []
+		for actor in actors:
+			actorposis.append(actor.coord)
+		if pos in actorposis :
+			return true
+	return false
+
+func is_cell_transparent(pos):
+	if (blockingtiles.find( get_cell(pos.x,pos.y) )  == -1 ):
+		return true
+	else:
+		return false
 
 func line(start, end):
 	var vec = end - start
@@ -218,6 +220,15 @@ func line(start, end):
 		line.append(Vector2(round(currentpos.x),round(currentpos.y)))
 	
 	return line
+
+func line_of_sight(start,end):
+	var line = line(start,end)
+	line.remove(line.size() - 1)
+	line.remove(0)
+	for pos in line:
+		if not is_cell_transparent(pos):
+			return false
+	return true
 	
 
 class Pathfinder:
