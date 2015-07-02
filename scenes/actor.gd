@@ -87,9 +87,9 @@ func melee_ability_move(target,path,ability):
 	
 	if char.can_act() && map.line(target.coord,coord).size()==2:
 		ability.use(char,target.char)
-		print ("Used melee ability")
+		print ("Used melee ability: ", ability.name)
 	else:
-		print ("Could not use melee ability")
+		print ("Could not use melee ability: ", ability.name )
 
 
 

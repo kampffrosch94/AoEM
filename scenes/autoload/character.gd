@@ -88,14 +88,19 @@ class Character:
 class Ability:
 	var name
 	var icon
-	var apcost = 1
+	
 	var maxrange
 	var effects =  []
 	
-	func _init(sname,sicon,smaxrange):
+	var apcost = 1
+	var target_friendly 
+	
+	
+	func _init(sname,sicon,smaxrange = 1, starget_friendly = false):
 		name = sname
 		icon = sicon
 		maxrange = smaxrange
+		target_friendly = starget_friendly
 	
 	func add_effect(e):
 		effects.append(e)

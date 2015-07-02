@@ -12,7 +12,8 @@ var actionbar
 var blockingtiles
 
 var actors = null
-var lastclickedpc = null
+var active_actor = null
+
 
 var pf
 
@@ -68,7 +69,7 @@ func _ready():
 	char.add_ability(attack)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
-	
+
 
 
 func createActor(texture, char, x,y):
@@ -90,8 +91,6 @@ func add_actor(actor):
 func remove_actor(actor):
 	actors.erase(actor)
 
-func set_lastclickedpc(actor):
-	lastclickedpc = actor
 
 func findactoratcoord(pos):
 	for actor in actors :
@@ -116,32 +115,33 @@ func clickactor(actor):
 		change_focus(actor)
 	else:
 		print ("Clicked Enemy")
-		if lastclickedpc != null:
-			var activeability = lastclickedpc.char.abilities[actionbar.get_selected()]
+		if active_actor != null:
+			var activeability = active_actor.char.abilities[actionbar.get_selected()]
 			if activeability.maxrange == 1:
-				var path = pf.findpath(lastclickedpc.coord, actor.coord)
+				var path = pf.findpath(active_actor.coord, actor.coord)
 				if(path != null):
-					lastclickedpc.melee_ability_move(actor,path,activeability)
-					set_lastclickedpc(null)
-			
+					active_actor.melee_ability_move(actor,path,activeability)
+					change_focus(null)
+
 
 func change_focus(actor):
-	set_lastclickedpc(actor)
-	actionbar.load_abilities(actor.char)
+	active_actor = actor
+	if actor != null:
+		actionbar.load_abilities(actor.char)
 
 
 
 func clicktile(pos):
 	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
-	print ("lastclickedpc: ", lastclickedpc)
-	if (lastclickedpc != null) and (!is_cell_blocking(pos)):
+	print ("active_actor: ", active_actor)
+	if (active_actor != null) and (!is_cell_blocking(pos)):
 		print("Move Actor of PC")
-		var start = lastclickedpc.coord
+		var start = active_actor.coord
 		
 		var path = pf.findpath(start,pos)
 		if path != null:
-			lastclickedpc.move_along_path(path)
-			set_lastclickedpc(null)
+			active_actor.move_along_path(path)
+			change_focus(null)
 
 func _on_endturnbutton_pressed():
 	print("End Turn (player)")
