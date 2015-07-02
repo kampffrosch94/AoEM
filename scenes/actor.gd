@@ -33,7 +33,6 @@ func _exit_tree():
 func add_equip(equiptexture):
 	var equipsprite = Sprite.new()
 	equipsprite.set_texture(equiptexture)
-	#equipsprite.set_pos(get_global_pos())
 	equipsprite.set_centered(false)
 	add_child(equipsprite)
 	
@@ -86,7 +85,7 @@ func attackmove(target, path):
 	
 	move_along_path(path)
 	if char.can_act():
-		char.attack(target.char)
+		char.abilities[0].use(char,target.char)
 
 
 

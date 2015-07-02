@@ -120,6 +120,7 @@ func clickactor(actor):
 			var activeability = lastclickedpc.char.abilities[actionbar.get_selected()]
 			if activeability.maxrange == 1:
 				melee_ability_move(actor,activeability)
+				
 			
 
 func change_focus(actor):

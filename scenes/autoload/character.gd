@@ -90,7 +90,7 @@ class Character:
 class Ability:
 	var name
 	var icon
-	
+	var apcost = 1
 	var maxrange
 	var effects =  []
 	
@@ -105,6 +105,7 @@ class Ability:
 	func use(user,target):
 		for effect in effects:
 			effect.use(user,target) 
+		user.ap -= apcost
 
 
 class Effect:
