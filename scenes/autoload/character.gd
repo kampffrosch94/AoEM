@@ -74,8 +74,6 @@ class Character:
 			actor.queue_free()
 			actor = null
 	
-	func pay_mp(cost):
-		mp = mp - cost
 	
 	func reset_mp():
 		mp = maxmp

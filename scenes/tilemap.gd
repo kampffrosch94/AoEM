@@ -119,23 +119,17 @@ func clickactor(actor):
 		if lastclickedpc != null:
 			var activeability = lastclickedpc.char.abilities[actionbar.get_selected()]
 			if activeability.maxrange == 1:
-				melee_ability_move(actor,activeability)
-				
+				var path = pf.findpath(lastclickedpc.coord, actor.coord)
+				if(path != null):
+					lastclickedpc.melee_ability_move(actor,path,activeability)
+					set_lastclickedpc(null)
 			
 
 func change_focus(actor):
 	set_lastclickedpc(actor)
 	actionbar.load_abilities(actor.char)
 
-func melee_ability_move(actor,ability):
-	var path = pf.findpath(lastclickedpc.coord, actor.coord)
-	if(path != null):
-		path.remove(path.size()-1)
-		lastclickedpc.move_along_path(path)
-		if lastclickedpc.char.can_act():
-			ability.use(lastclickedpc.char,actor.char)
-			lastclickedpc.char.ap -= 1
-		set_lastclickedpc(null)
+
 
 func clicktile(pos):
 	print ("Click Tile: ",pos, " Blocking?:", is_cell_blocking(pos))
@@ -185,7 +179,7 @@ func enemy_act(enemy):
 			nearestpa = pa
 	
 	if nearestpa != null:
-		enemy.attackmove(nearestpa, playeractors[nearestpa])
+		enemy.melee_ability_move(nearestpa, playeractors[nearestpa],enemy.char.abilities[0])
 
 func is_cell_blocking(pos):
 	if (  blockingtiles.find( get_cell(pos.x,pos.y) )  != -1 ):

@@ -66,26 +66,30 @@ func move_along_path(path):
 	if path != null and path.size() > 0:
 		if char.can_move(path.size()):
 			move_to_coord(path[0])
-			char.pay_mp(path.size())
+			char.mp -= path.size()
 			update()
 			path.remove(0)
 			movepath = path
 		else:
 			print ("Not enough actionpoints")
-#	else:
-#		print ("Path is null")
-		
 
-func attackmove(target, path):
+
+func melee_ability_move(target,path,ability):
 	if path[path.size()-1] == target.coord:
 		path.remove(path.size() - 1)
+	else:
+		print ("Target coord is not at the end of path")
 	
 	while not char.can_move(path.size()):
 		path.remove(path.size() - 1)
 	
 	move_along_path(path)
-	if char.can_act():
-		char.abilities[0].use(char,target.char)
+	
+	if char.can_act() && map.line(target.coord,coord).size()==2:
+		ability.use(char,target.char)
+		print ("Used melee ability")
+	else:
+		print ("Could not use melee ability")
 
 
 
