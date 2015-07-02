@@ -15,7 +15,8 @@ var actors = null
 var active_actor = null
 
 
-var pf
+var pf #pathfinder
+
 
 func _ready():
 	#initialize
@@ -25,6 +26,7 @@ func _ready():
 	set_process_unhandled_input(true)
 
 	pf = Pathfinder.new(20,20,self)
+
 
 	#random tests
 	var start = Vector2(0,-1)
@@ -91,6 +93,13 @@ func add_actor(actor):
 func remove_actor(actor):
 	actors.erase(actor)
 
+func change_focus(actor):
+	if active_actor != null:
+		active_actor.highlight.hide()
+	if actor != null:
+		actionbar.load_abilities(actor.char)
+		actor.highlight.show()
+	active_actor = actor
 
 func findactoratcoord(pos):
 	for actor in actors :
@@ -124,10 +133,7 @@ func clickactor(actor):
 					change_focus(null)
 
 
-func change_focus(actor):
-	active_actor = actor
-	if actor != null:
-		actionbar.load_abilities(actor.char)
+
 
 
 
@@ -155,7 +161,7 @@ func _on_endturnbutton_pressed():
 func enemy_turn():
 	for actor in actors:
 		if not actor.char.is_pc():
-			while actor.char.can_act():
+			if actor.char.can_act():
 				enemy_act(actor)
 	
 	for actor in actors:

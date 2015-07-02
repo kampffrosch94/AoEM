@@ -9,6 +9,7 @@ var map
 var char
 var coord
 
+var highlight
 
 const movespeed = 100 #how many pixel per second does the sprite move
 var goalpos #goalposition of the sprite
@@ -19,7 +20,13 @@ func init(bodytexture,schar, scoord):
 	char.actor = self
 	set_texture(bodytexture)
 	coord = scoord
-
+	
+	highlight = Sprite.new()
+	highlight.set_texture(load("res://gfx/dc-misc/cursor.png"))
+	highlight.set_centered(false)
+	highlight.hide()
+	add_child(highlight)
+	
 
 func _ready():
 
@@ -36,7 +43,7 @@ func add_equip(equiptexture):
 	equipsprite.set_centered(false)
 	add_child(equipsprite)
 	
-	print ("Childpos: ", equipsprite.get_pos())
+	print ("Equipspritepos: ", equipsprite.get_pos())
 
 
 
