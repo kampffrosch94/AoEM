@@ -17,22 +17,29 @@ var active_actor = null
 
 var pf #pathfinder
 
+var highlighter = null
+
 
 func _ready():
 	#initialize
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
 	actionbar = get_node("camera/actionbar")
+	highlighter = get_node("highlighter")
 	set_process_unhandled_input(true)
-
+	
 	pf = Pathfinder.new(20,20,self)
 
 
 	#random tests
-	var start = Vector2(0,-1)
+	var start = Vector2(5,5)
 	var end = Vector2(1,3)
 	print("line of sight:")
 	print(line_of_sight(start,end))
+
+
+	print("Cellsize: ", get_cell_size())
+	
 	print("End Test")
 	#random tests end
 
@@ -71,6 +78,8 @@ func _ready():
 	char.add_ability(attack)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
+
+
 
 
 
@@ -126,11 +135,20 @@ func clickactor(actor):
 		print ("Clicked Enemy")
 		if active_actor != null:
 			var activeability = active_actor.char.abilities[actionbar.get_selected()]
-			if activeability.maxrange == 1:
+			print("current ability range: ", activeability.maxrange)
+			if activeability.maxrange == 1: #melee
 				var path = pf.findpath(active_actor.coord, actor.coord)
 				if(path != null):
 					active_actor.melee_ability_move(actor,path,activeability)
 					change_focus(null)
+			elif activeability.maxrange > 1: #ranged
+				print("Try using ranged ability")
+				print(line_of_sight(active_actor.coord,actor.coord))
+				var line = line_to(active_actor.coord,actor.coord)
+				if line_of_sight(active_actor.coord,actor.coord) && line.size() <= activeability.maxrange:
+					print("Use ranged ability")
+					highlighter.add_cells(line)
+					highlighter.update()
 
 
 
@@ -222,10 +240,19 @@ func line(start, end):
 	
 	return line
 
-func line_of_sight(start,end):
+func line_between(start,end):
 	var line = line(start,end)
 	line.remove(line.size() - 1)
 	line.remove(0)
+	return line
+
+func line_to(start,end):
+	var line = line(start,end)
+	line.remove(0)
+	return line
+
+func line_of_sight(start,end):
+	var line = line_between(start,end)
 	for pos in line:
 		if not is_cell_transparent(pos):
 			return false

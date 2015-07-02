@@ -3,7 +3,7 @@
 
 extends Camera2D
 
-var move = null
+var move
 var firstpress = true
 var origpos
 
