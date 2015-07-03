@@ -53,14 +53,14 @@ func _ready():
 	var attackeffect = charscript.Effect.new(0,attackeffectscaling)
 	attack.add_effect(attackeffect)
 	
-	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),3)
+	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),30)
 	var heal = charscript.Ability.new("Heal",load("res://gfx/spells/necromancy/regeneration.png"),2)
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
 	char.add_ability(attack)
 	char.add_ability(flame)
 	var texture = load("res://gfx/player/base/human_m.png")
-	var act = createActor(texture,char, 1,1)
+	var act = createActor(texture,char, 20,10)
 	act.add_equip(load("res://gfx/sword.png"))
 	
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
@@ -84,12 +84,10 @@ func _ready():
 
 
 func createActor(texture, char, x,y):
-	#var actorres = load("res://scenes/actor.scn")
-	#var apc = actorres.instance()
-	var apc = load("res://scenes/actor.gd").new()
-	var pos = Vector2(x,y)	
+	var pos = Vector2(x,y)
+	var apc = load("res://scenes/movable.gd").Actor.new(texture,char, pos)
 	
-	apc.init(texture,char, pos)
+	#apc.init(texture,char, pos)
 	apc.set_pos(map_to_world(pos))
 	add_child(apc)
 	return apc
