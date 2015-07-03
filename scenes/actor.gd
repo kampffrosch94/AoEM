@@ -33,6 +33,7 @@ func _ready():
 	map = get_node("/root/map")
 	map.add_actor(self)
 	goalpos = get_pos()
+	set_centered(false)
 
 func _exit_tree():
 	map.remove_actor(self)

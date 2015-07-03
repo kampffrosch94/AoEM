@@ -84,8 +84,9 @@ func _ready():
 
 
 func createActor(texture, char, x,y):
-	var actorres = load("res://scenes/actor.scn")
-	var apc = actorres.instance()
+	#var actorres = load("res://scenes/actor.scn")
+	#var apc = actorres.instance()
+	var apc = load("res://scenes/actor.gd").new()
 	var pos = Vector2(x,y)	
 	
 	apc.init(texture,char, pos)
@@ -142,11 +143,8 @@ func clickactor(actor):
 					active_actor.melee_ability_move(actor,path,activeability)
 					change_focus(null)
 			elif activeability.maxrange > 1: #ranged
-				print("Try using ranged ability")
-				print(line_of_sight(active_actor.coord,actor.coord))
 				var line = line_to(active_actor.coord,actor.coord)
 				if line_of_sight(active_actor.coord,actor.coord) && line.size() <= activeability.maxrange:
-					print("Use ranged ability")
 					highlighter.add_cells(line)
 					highlighter.update()
 
