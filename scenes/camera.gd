@@ -9,6 +9,7 @@ var origpos
 
 func _ready():
 	make_current()
+	set_centered(true)
 	set_process(true)
 
 
