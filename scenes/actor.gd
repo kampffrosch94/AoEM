@@ -1,5 +1,6 @@
-#An actor is the graphical representation of a character
+#An actor is the graphical representation of a moving object or character
 #it handles the GUI stuff so that the character can focus on gameplay mechanics
+
 
 
 extends Sprite
@@ -11,9 +12,12 @@ var coord
 
 var highlight
 
-const movespeed = 100 #how many pixel per second does the sprite move
+var movespeed = 100 #how many pixel per second does the sprite move
 var goalpos #goalposition of the sprite
 var direction #towards goalpos
+
+var movepath = null
+var show_stats 
 
 func init(bodytexture,schar, scoord):
 	char = schar;
@@ -21,17 +25,22 @@ func init(bodytexture,schar, scoord):
 	set_texture(bodytexture)
 	coord = scoord
 	
+	show_stats = true
+	map.add_actor(self)
+	
 	highlight = Sprite.new()
 	highlight.set_texture(load("res://gfx/dc-misc/cursor.png"))
 	highlight.set_centered(false)
 	highlight.hide()
 	add_child(highlight)
-	
+
+func init_projectile(texture):
+	movespeed = 200
+	show_stats = false
+	set_texture(texture)
 
 func _ready():
-
 	map = get_node("/root/map")
-	map.add_actor(self)
 	goalpos = get_pos()
 	set_centered(false)
 
@@ -49,9 +58,10 @@ func add_equip(equiptexture):
 
 
 func _draw():
-	draw_string ( get_node("/root/global").defaultfont, Vector2(22,10), str(char.hp), Color(255,0,0))
-	draw_string ( get_node("/root/global").defaultfont, Vector2(22,20), str(char.mp), Color(0,255,0))
-	draw_string ( get_node("/root/global").defaultfont, Vector2(22,30), str(char.ap), Color(0,0,255))
+	if show_stats:
+		draw_string ( get_node("/root/global").defaultfont, Vector2(22,10), str(char.hp), Color(255,0,0))
+		draw_string ( get_node("/root/global").defaultfont, Vector2(22,20), str(char.mp), Color(0,255,0))
+		draw_string ( get_node("/root/global").defaultfont, Vector2(22,30), str(char.ap), Color(0,0,255))
 
 func get_direction(start,goal): #returns the directionalvector from one point to another
 	var diff = goal - start
@@ -68,7 +78,7 @@ func move_to_coord(scoord):
 	direction = get_direction(get_pos(),goalpos)
 	set_process(true)
 
-var movepath = null
+
 
 func move_along_path(path):
 	if path != null and path.size() > 0:
