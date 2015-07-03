@@ -23,3 +23,4 @@ func add_cell(cell):
 
 func reset():
 	highlighted_cells = []
+	update()

@@ -19,6 +19,9 @@ var pf #pathfinder
 
 var highlighter = null
 
+var abilityconfirm = false
+var abilitytoconfirm = null
+var abilitylocation = null
 
 func _ready():
 	#initialize
@@ -141,14 +144,20 @@ func clickactor(actor):
 					active_actor.melee_ability_move(actor,path,activeability)
 					change_focus(null)
 			elif activeability.maxrange > 1: #ranged
-				var line = line_to(active_actor.coord,actor.coord)
-				if line_of_sight(active_actor.coord,actor.coord) && line.size() <= activeability.maxrange:
-					highlighter.add_cells(line)
-					highlighter.update()
-
-
-
-
+				if abilityconfirm:
+					abilityconfirm = false
+					highlighter.reset()
+					var activeability = active_actor.char.abilities[actionbar.get_selected()]
+					if abilitytoconfirm == activeability && abilitylocation == actor.coord:
+						pass
+				else:
+					var line = line_to(active_actor.coord,actor.coord)
+					if line_of_sight(active_actor.coord,actor.coord) && line.size() <= activeability.maxrange:
+						abilityconfirm = true
+						abilitytoconfirm = activeability
+						abilitylocation = actor.coord
+						highlighter.add_cells(line)
+						highlighter.update()
 
 
 func clicktile(pos):
