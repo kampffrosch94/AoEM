@@ -26,7 +26,7 @@ func init(bodytexture,schar, scoord):
 	coord = scoord
 	
 	show_stats = true
-	map.add_actor(self)
+	
 	
 	highlight = Sprite.new()
 	highlight.set_texture(load("res://gfx/dc-misc/cursor.png"))
@@ -43,6 +43,7 @@ func _ready():
 	map = get_node("/root/map")
 	goalpos = get_pos()
 	set_centered(false)
+	map.add_actor(self)
 
 func _exit_tree():
 	map.remove_actor(self)
