@@ -99,11 +99,20 @@ class Ability:
 	
 	func add_effect(e):
 		effects.append(e)
-	
+
+	func can_use(user):
+		if user.ap >= apcost:
+			return true
+		else:
+			return false
+
 	func use(user,target):
+		if user.ap < apcost:
+			return false
 		for effect in effects:
 			effect.use(user,target) 
 		user.ap -= apcost
+		return true
 
 
 class Effect:
@@ -111,11 +120,11 @@ class Effect:
 	const dmg = 0
 	var type
 	var scaling
-	
+
 	func _init(stype,sscaling):
 		type = stype
 		scaling = sscaling
-	
+
 	func use(user,target):
 		if type == dmg:
 			target.takedmg(scaling.scale(user))
@@ -125,8 +134,7 @@ class Effect:
 class Scaling:
 	var base = 0
 	var dmgscaling = 0
-	
-	
+
 	func scale(user):
 		return base + user.dmg * dmgscaling
 

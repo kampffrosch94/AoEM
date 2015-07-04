@@ -107,7 +107,7 @@ class Actor:
 		
 		move_along_path(path)
 		
-		if char.can_act() && map.line(target.coord,coord).size()==2:
+		if ability.can_use(char) && map.line(target.coord,coord).size()==2:
 			ability.use(char,target.char)
 			print ("Used melee ability: ", ability.name)
 		else:

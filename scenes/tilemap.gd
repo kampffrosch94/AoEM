@@ -57,6 +57,7 @@ func _ready():
 	attack.add_effect(attackeffect)
 	
 	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),30)
+	flame.add_effect(attackeffect)
 	var heal = charscript.Ability.new("Heal",load("res://gfx/spells/necromancy/regeneration.png"),2)
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
@@ -149,8 +150,8 @@ func clickactor(actor):
 					highlighter.reset()
 					var activeability = active_actor.char.abilities[actionbar.get_selected()]
 					if abilitytoconfirm == activeability && abilitylocation == actor.coord:
-						pass
-				else:
+						activeability.use(active_actor.char,actor.char)
+				elif activeability.can_use(active_actor.char):
 					var line = line_to(active_actor.coord,actor.coord)
 					if line_of_sight(active_actor.coord,actor.coord) && line.size() <= activeability.maxrange:
 						abilityconfirm = true
@@ -170,7 +171,6 @@ func clicktile(pos):
 		var path = pf.findpath(start,pos)
 		if path != null:
 			active_actor.move_along_path(path)
-			change_focus(null)
 
 func _on_endturnbutton_pressed():
 	print("End Turn (player)")
