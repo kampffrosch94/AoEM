@@ -48,7 +48,7 @@ func _ready():
 
 
 	#create Actors
-	var charscript = load("res://scenes/autoload/character.gd")
+	var charscript = load("res://scenes/common/character.gd")
 	
 	var attack = charscript.Ability.new("regular Attack",load("res://gfx/spells/earth/maxwells_silver_hammer.png"),1)
 	var attackeffectscaling = charscript.Scaling.new()
@@ -83,13 +83,9 @@ func _ready():
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 
-
-
-
-
 func createActor(texture, char, x,y):
 	var pos = Vector2(x,y)
-	var apc = load("res://scenes/movable.gd").Actor.new(texture,char, pos)
+	var apc = load("res://scenes/common/movable.gd").Actor.new(texture,char, pos)
 	
 	#apc.init(texture,char, pos)
 	apc.set_pos(map_to_world(pos))
