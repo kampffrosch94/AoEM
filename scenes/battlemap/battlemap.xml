@@ -242,8 +242,11 @@
 							<string> "current" </string>
 							<int> 0 </int>
 							<string> "sources" </string>
-							<array  len="1" shared="false">
+							<array  len="4" shared="false">
 								<string> "res://scenes/battlemap/battlemap.gd" </string>
+								<string> "res://scenes/common/logger.gd" </string>
+								<string> "res://scenes/common/global.gd" </string>
+								<string> "res://scenes/battlemap/camera.gd" </string>
 							</array>
 						</dictionary>
 					</dictionary>
