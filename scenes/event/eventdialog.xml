@@ -8,7 +8,7 @@
 			<string> "conns" </string>
 			<int_array  len="0"> 				 </int_array>
 			<string> "names" </string>
-			<string_array  len="34">
+			<string_array  len="31">
 				<string> "eventdialog" </string>
 				<string> "Control" </string>
 				<string> "_import_path" </string>
@@ -38,18 +38,15 @@
 				<string> "anchor/top" </string>
 				<string> "scroll/horizontal" </string>
 				<string> "scroll/vertical" </string>
-				<string> "buttonarray" </string>
-				<string> "VButtonArray" </string>
-				<string> "button/count" </string>
-				<string> "button/min_button_size" </string>
-				<string> "button/align" </string>
+				<string> "box" </string>
+				<string> "VBoxContainer" </string>
 			</string_array>
 			<string> "node_count" </string>
 			<int> 4 </int>
 			<string> "nodes" </string>
-			<int_array  len="176"> 				-1, -1, 1, 0, -1, 18, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 18, 6, 19, 7, 0, 0, 0, 21, 20, -1, 18, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 8, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 22, 4, 23, 9, 0, 0, 0, 25, 24, -1, 19, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 26, 8, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 27, 1, 28, 1, 0, 2, 0, 30, 29, -1, 19, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 31, 10, 32, 11, 33, 12, 0 </int_array>
+			<int_array  len="170"> 				-1, -1, 1, 0, -1, 18, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 18, 6, 19, 7, 0, 0, 0, 21, 20, -1, 18, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 8, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 22, 4, 23, 9, 0, 0, 0, 25, 24, -1, 19, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 26, 8, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 1, 15, 5, 16, 5, 17, 2, 27, 1, 28, 1, 0, 2, 0, 30, 29, -1, 16, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 3, 8, 3, 9, 0, 10, 0, 11, 0, 12, 0, 13, 4, 14, 4, 15, 5, 16, 5, 17, 2, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="13" shared="false">
+			<array  len="10" shared="false">
 				<node_path> "" </node_path>
 				<bool> True </bool>
 				<real> 1 </real>
@@ -199,9 +196,6 @@
 				</dictionary>
 				<int> 3 </int>
 				<string> "" </string>
-				<int> 0 </int>
-				<real> -1 </real>
-				<int> 108 </int>
 			</array>
 			<string> "version" </string>
 			<int> 1 </int>
