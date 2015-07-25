@@ -27,7 +27,7 @@ var abilitylocation = null
 
 func _ready():
 	#initialize
-	blockingtiles = [-1,1]
+	init_blocking_tiles()
 	camera = get_node("camera")
 	camera.set_z(2)
 	actionbar = get_node("camera/actionbar")
@@ -88,6 +88,13 @@ func _ready():
 	char.add_ability(attack)
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
+
+func init_blocking_tiles():
+	blockingtiles = [-1] #no tile
+	var ids = get_tileset().get_tiles_ids()
+	for id in ids:
+		if get_tileset().tile_get_name(id).find("wall") != -1:
+			blockingtiles.append(id)
 
 func _draw():
 	for a in actors:

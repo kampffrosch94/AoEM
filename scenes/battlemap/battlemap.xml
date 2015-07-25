@@ -242,13 +242,14 @@
 							<string> "current" </string>
 							<int> 0 </int>
 							<string> "sources" </string>
-							<array  len="6" shared="false">
+							<array  len="7" shared="false">
 								<string> "res://scenes/battlemap/battlemap.gd" </string>
 								<string> "res://scenes/common/logger.gd" </string>
 								<string> "res://scenes/common/global.gd" </string>
 								<string> "res://scenes/battlemap/camera.gd" </string>
 								<string> "res://scenes/common/movable.gd" </string>
 								<string> "res://scenes/battlemap/actionbar.gd" </string>
+								<string> "res://tilesets/tilesetbuilder.gd" </string>
 							</array>
 						</dictionary>
 					</dictionary>

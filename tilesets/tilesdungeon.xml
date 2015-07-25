@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="TileSet" subresource_count="3" version="1.0" version_name="Godot Engine v1.0.stable.7eb5d049c2">
+<resource_file type="TileSet" subresource_count="3" version="1.1" version_name="Godot Engine v1.1.stable.d3b42e41b0">
 	<ext_resource path="res://gfx/dc-dngn/floor/grey_dirt0.png" type="Texture"></ext_resource>
 	<ext_resource path="res://gfx/dc-dngn/wall/brick_dark0.png" type="Texture"></ext_resource>
 	<main_resource>
-		<string name="0/name"> "grey_dirt0" </string>
+		<string name="0/name"> "gfx/dc-dngn/floor/grey_dirt0.png" </string>
 		<resource name="0/texture" resource_type="Texture" path="res://gfx/dc-dngn/floor/grey_dirt0.png">  </resource>
 		<vector2 name="0/tex_offset"> 0, 0 </vector2>
-		<vector2 name="0/shape_offset"> 0, 0 </vector2>
-		<rect2 name="0/region"> 0, 0, 0, 0 </rect2>
+		<resource name="0/material"></resource>		<rect2 name="0/region"> 0, 0, 0, 0 </rect2>
+		<vector2 name="0/occluder_offset"> 0, 0 </vector2>
+		<resource name="0/occluder"></resource>		<vector2 name="0/navigation_offset"> 0, 0 </vector2>
+		<resource name="0/navigation"></resource>		<vector2 name="0/shape_offset"> 0, 0 </vector2>
 		<array name="0/shapes" len="0" shared="false">
 		</array>
-		<string name="1/name"> "brick_dark0" </string>
+		<string name="1/name"> "gfx/dc-dngn/wall/brick_dark0.png" </string>
 		<resource name="1/texture" resource_type="Texture" path="res://gfx/dc-dngn/wall/brick_dark0.png">  </resource>
 		<vector2 name="1/tex_offset"> 0, 0 </vector2>
-		<vector2 name="1/shape_offset"> 0, 0 </vector2>
-		<rect2 name="1/region"> 0, 0, 0, 0 </rect2>
+		<resource name="1/material"></resource>		<rect2 name="1/region"> 0, 0, 0, 0 </rect2>
+		<vector2 name="1/occluder_offset"> 0, 0 </vector2>
+		<resource name="1/occluder"></resource>		<vector2 name="1/navigation_offset"> 0, 0 </vector2>
+		<resource name="1/navigation"></resource>		<vector2 name="1/shape_offset"> 0, 0 </vector2>
 		<array name="1/shapes" len="0" shared="false">
 		</array>
 
