@@ -15,7 +15,6 @@ func _ready():
 
 func handle_movement():
 	logger.d("camera","handling cameramovement",true)
-	firstpress = true
 	set_process(true)
 
 func _process(delta):
@@ -29,6 +28,7 @@ func _process(delta):
 		origpos = get_viewport().get_mouse_pos()
 	else:
 		set_process(false)
+		firstpress = true
 		logger.d("camera","completed handling cameramovement",true)
 
 func get_actual_pos(pos): #Worldpos from event.pos

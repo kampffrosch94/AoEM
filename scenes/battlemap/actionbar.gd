@@ -1,8 +1,10 @@
 #This is the actionbar, a contextmenu for the abilities of a selected character.
 extends HButtonArray
 
+var logger
 
 func _ready():
+	logger = get_node("/root/global").logger
 	grab_focus()
 	#define Shortcut events
 	var event = InputEvent()

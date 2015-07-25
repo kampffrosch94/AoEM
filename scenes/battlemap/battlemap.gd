@@ -29,6 +29,7 @@ func _ready():
 	#initialize
 	blockingtiles = [-1,1]
 	camera = get_node("camera")
+	camera.set_z(2)
 	actionbar = get_node("camera/actionbar")
 	highlighter = get_node("highlighter")
 	logger = get_node("/root/global").logger
