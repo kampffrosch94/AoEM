@@ -135,8 +135,8 @@ func _unhandled_input(event):
 				clickactor(foundactor)
 			else:
 				clicktile(pos)
-		if event.button_index == 3 and event.is_pressed():
-			camera.handle_movement()
+	if event.is_action("camera_move") and event.is_pressed() and camera.firstpress:
+		camera.handle_movement()
 
 func clickactor(actor):
 	if actor.char.is_pc():

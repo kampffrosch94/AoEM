@@ -19,7 +19,7 @@ func handle_movement():
 	set_process(true)
 
 func _process(delta):
-	if(Input.is_mouse_button_pressed(3)):
+	if Input.is_action_pressed("camera_move"):
 		get_tree().set_input_as_handled()
 		if(firstpress):
 			firstpress = false
