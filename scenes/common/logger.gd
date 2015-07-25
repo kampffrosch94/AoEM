@@ -39,3 +39,18 @@ class Logger:
 	func e(tag, line, echo=false):
 		var towrite = "ERROR|"+tag 
 		baselog(tag,line,echo,error)
+	
+	func te(tag,line,echo = true):
+		t(tag,line,echo)
+
+	func de(tag,line,echo = true):
+		d(tag,line,echo)
+
+	func we(tag,line,echo = true):
+		w(tag,line,echo)
+
+	func ee(tag,line,echo = true):
+		e(tag,line,echo)
+
+	func ie(tag,line,echo = true):
+		i(tag,line,echo)

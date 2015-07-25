@@ -18,7 +18,6 @@ class Movable:
 		map = get_node("/root/map")
 		goalpos = get_pos()
 		set_centered(false)
-		map.add_actor(self)
 
 	func get_direction(start,goal): #returns the directionalvector from one point to another
 		var diff = goal - start

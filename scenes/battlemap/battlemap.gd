@@ -8,6 +8,7 @@ extends TileMap
 
 var camera
 var actionbar
+var logger
 
 var blockingtiles
 
@@ -16,6 +17,7 @@ var active_actor = null
 
 
 var pf #pathfinder
+var mapdata
 
 var highlighter = null
 
@@ -29,8 +31,11 @@ func _ready():
 	camera = get_node("camera")
 	actionbar = get_node("camera/actionbar")
 	highlighter = get_node("highlighter")
+	logger = get_node("/root/global").logger
 	set_process_unhandled_input(true)
-	
+	mapdata = MapData.new(22,logger)
+	mapdata.make_rect(0,Vector2(1,1),Vector2(20,20))
+	mapdata.write_to_tilemap(self)
 	pf = Pathfinder.new(20,20,self)
 
 
@@ -83,13 +88,18 @@ func _ready():
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 
+func _draw():
+	for a in actors:
+		a._draw()
+
 func createActor(texture, char, x,y):
 	var pos = Vector2(x,y)
 	var apc = load("res://scenes/common/movable.gd").Actor.new(texture,char, pos)
 	
-	#apc.init(texture,char, pos)
 	apc.set_pos(map_to_world(pos))
 	add_child(apc)
+	apc.set_z(1)
+	add_actor(apc)
 	return apc
 
 func add_actor(actor):
@@ -260,7 +270,47 @@ func line_of_sight(start,end):
 		if not is_cell_transparent(pos):
 			return false
 	return true
+
+class MapData:
+	var tiles = []
+	var chars = []
+	var sizeroot
+	var logger 
 	
+	func _init(rootofsize,logger):
+		self.logger = logger
+		sizeroot = rootofsize
+		for i in range(sizeroot*sizeroot):
+			tiles.append(1)
+	
+	func write_to_tilemap(tilemap):
+		for y in range(sizeroot):
+			for x in range(sizeroot):
+				tilemap.set_cell(x,y,tiles[map_to_data(x,y)])
+	
+	func map_to_data(pos,y=null):
+		if y != null:
+			return pos * sizeroot + y
+		return int(pos.y) * sizeroot + int(pos.x)
+	
+	func data_to_map(id):
+		var pos = Vector2(int(id/sizeroot),id%sizeroot)
+		logger.te("MapData","data_to_map | to: "+ str(pos) + " from: " + str(id))
+		return pos
+	
+	func make_rect(fill,start,end):
+		if start.x >= end.x or start.y >= end.y:
+			logger.we("MapData", "wrong arguments: end is before start")
+			return
+		if map_to_data(end) >= sizeroot * sizeroot:
+			logger.we("MapData", "wrong arguments: end is out of bounds")
+			return
+			
+		for x in range(int(start.x),int(end.x)+1):
+			for y in range(int(start.y),int(end.y)+1):
+				tiles[map_to_data(x,y)] = fill
+
+
 
 class Pathfinder:
 	class Tile:
