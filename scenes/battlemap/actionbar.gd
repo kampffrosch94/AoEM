@@ -20,6 +20,8 @@ func _input_event(event):
 	if(event.is_action("actionbarkey") && event.is_pressed()):
 		var id = event.scancode - 49
 		set_selected(id)
+	elif event.type == InputEvent.KEY and event.is_pressed() and event.scancode == 69:
+		get_node("/root/map")._on_endturnbutton_pressed()
 
 
 func load_abilities(char):

@@ -89,6 +89,7 @@ func _ready():
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 
+
 func init_blocking_tiles():
 	blockingtiles = [-1] #no tile
 	var ids = get_tileset().get_tiles_ids()
@@ -188,6 +189,7 @@ func clicktile(pos):
 		if path != null:
 			active_actor.move_along_path(path)
 
+
 func _on_endturnbutton_pressed():
 	print("End Turn (player)")
 	if actors != null and actors.size() > 0:
@@ -195,7 +197,9 @@ func _on_endturnbutton_pressed():
 			if actor.char.is_pc():
 				actor.char.end_turn()
 				actor.update()
+	check_victory()
 	enemy_turn()
+	actionbar.grab_focus()
 
 func enemy_turn():
 	for actor in actors:
@@ -460,4 +464,19 @@ class Pathfinder:
 	
 
 
+func check_victory():
+	for actor in actors:
+		if not actor.char.is_pc():
+			return
+	show_end_dialog()
 
+func show_end_dialog():
+	var dialog = get_node("enddialog")
+	dialog.set_size(Vector2(200, 100))
+	dialog.set_title("Victory")
+	dialog.set_text("You have vanquished your foes. \nShould you die in the future you \nwill surely dine with your \nancestors in valhalla.")
+	dialog.popup_centered()
+	dialog.grab_focus()
+
+func _on_enddialog_confirmed():
+	get_tree().change_scene("res://scenes/title/titlescreen.xml")
