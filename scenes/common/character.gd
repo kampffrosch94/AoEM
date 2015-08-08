@@ -88,7 +88,7 @@ class Ability:
 	var effects =  []
 	
 	var apcost = 1
-	var target_friendly 
+	var target_friendly = false
 	
 	
 	func _init(sname,sicon,smaxrange = 1, starget_friendly = false):

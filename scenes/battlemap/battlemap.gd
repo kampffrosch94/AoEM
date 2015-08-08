@@ -62,9 +62,14 @@ func _ready():
 	var attackeffect = charscript.Effect.new(0,attackeffectscaling)
 	attack.add_effect(attackeffect)
 	
+	var healingscaling = charscript.Scaling.new()
+	healingscaling.base = -5
+	var healingeffect = charscript.Effect.new(0,healingscaling)
+	
+	
 	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),30)
 	flame.add_effect(attackeffect)
-	var heal = charscript.Ability.new("Heal",load("res://gfx/spells/necromancy/regeneration.png"),2)
+
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
 	char.add_ability(attack)
@@ -75,7 +80,6 @@ func _ready():
 	
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
 	char.add_ability(attack)
-	char.add_ability(heal)
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,2)
 	
@@ -200,6 +204,23 @@ func _on_endturnbutton_pressed():
 	check_victory()
 	enemy_turn()
 	actionbar.grab_focus()
+
+func check_victory():
+	for actor in actors:
+		if not actor.char.is_pc():
+			return
+	show_end_dialog()
+
+func show_end_dialog():
+	var dialog = get_node("enddialog")
+	dialog.set_size(Vector2(200, 100))
+	dialog.set_title("Victory")
+	dialog.set_text("You have vanquished your foes. \nShould you die in the future you \nwill surely dine with your \nancestors in valhalla.")
+	dialog.popup_centered()
+	dialog.grab_focus()
+
+func _on_enddialog_confirmed():
+	get_tree().change_scene("res://scenes/title/titlescreen.xml")
 
 func enemy_turn():
 	for actor in actors:
@@ -461,22 +482,3 @@ class Pathfinder:
 		for i in range(array.size()):
 			reverse.append(array[array.size() - 1 - i])
 		return reverse
-	
-
-
-func check_victory():
-	for actor in actors:
-		if not actor.char.is_pc():
-			return
-	show_end_dialog()
-
-func show_end_dialog():
-	var dialog = get_node("enddialog")
-	dialog.set_size(Vector2(200, 100))
-	dialog.set_title("Victory")
-	dialog.set_text("You have vanquished your foes. \nShould you die in the future you \nwill surely dine with your \nancestors in valhalla.")
-	dialog.popup_centered()
-	dialog.grab_focus()
-
-func _on_enddialog_confirmed():
-	get_tree().change_scene("res://scenes/title/titlescreen.xml")
