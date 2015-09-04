@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="6" version="1.1" version_name="Godot Engine v1.1.stable.d3b42e41b0">
+<resource_file type="PackedScene" subresource_count="7" version="1.1" version_name="Godot Engine v1.1.stable.d3b42e41b0">
 	<ext_resource path="res://gfx/manmade/titlescreen/bg.png" type="Texture"></ext_resource>
 	<ext_resource path="res://scenes/title/titlescreen.gd" type="Script"></ext_resource>
 	<ext_resource path="res://gfx/manmade/titlescreen/continue.png" type="Texture"></ext_resource>
 	<ext_resource path="res://gfx/manmade/titlescreen/newgame.png" type="Texture"></ext_resource>
 	<ext_resource path="res://gfx/manmade/titlescreen/exit.png" type="Texture"></ext_resource>
+	<ext_resource path="res://sound/music/The Dark Amulet_0.ogg" type="AudioStream"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
 			<int> 2 </int>
 			<string> "conns" </string>
-			<int_array  len="12"> 				1, 0, 42, 41, 2, 0, 3, 0, 42, 43, 2, 0 </int_array>
+			<int_array  len="12"> 				1, 0, 50, 49, 2, 0, 3, 0, 50, 51, 2, 0 </int_array>
 			<string> "names" </string>
-			<string_array  len="44">
+			<string_array  len="52">
 				<string> "title" </string>
 				<string> "TextureFrame" </string>
 				<string> "_import_path" </string>
@@ -54,22 +55,30 @@
 				<string> "params/modulate" </string>
 				<string> "newgameButton" </string>
 				<string> "exitButton" </string>
+				<string> "titlemusic" </string>
+				<string> "StreamPlayer" </string>
+				<string> "stream/stream" </string>
+				<string> "stream/play" </string>
+				<string> "stream/loop" </string>
+				<string> "stream/volume_db" </string>
+				<string> "stream/autoplay" </string>
+				<string> "stream/paused" </string>
 				<string> "_on_continueButton_pressed" </string>
 				<string> "pressed" </string>
 				<string> "_on_exitButton_pressed" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 4 </int>
+			<int> 5 </int>
 			<string> "nodes" </string>
-			<int_array  len="250"> 				-1, -1, 1, 0, -1, 21, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 4, 8, 5, 9, 0, 10, 0, 11, 0, 12, 0, 13, 1, 14, 1, 15, 6, 16, 6, 17, 2, 18, 7, 19, 8, 20, 9, 21, 10, 22, 11, 0, 0, 0, 24, 23, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 12, 7, 13, 8, 14, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 15, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 39, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 18, 7, 19, 8, 20, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 21, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 40, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 22, 7, 23, 8, 24, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 25, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0 </int_array>
+			<int_array  len="271"> 				-1, -1, 1, 0, -1, 21, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 4, 8, 5, 9, 0, 10, 0, 11, 0, 12, 0, 13, 1, 14, 1, 15, 6, 16, 6, 17, 2, 18, 7, 19, 8, 20, 9, 21, 10, 22, 11, 0, 0, 0, 24, 23, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 12, 7, 13, 8, 14, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 15, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 39, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 18, 7, 19, 8, 20, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 21, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 40, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 22, 7, 23, 8, 24, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 25, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 42, 41, -1, 7, 2, 0, 43, 26, 44, 9, 45, 1, 46, 27, 47, 1, 48, 9, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="26" shared="false">
+			<array  len="28" shared="false">
 				<node_path> "" </node_path>
 				<bool> True </bool>
 				<real> 1 </real>
 				<int> 1 </int>
-				<real> 627 </real>
-				<real> 596 </real>
+				<real> 800 </real>
+				<real> 600 </real>
 				<int> 2 </int>
 				<resource  resource_type="Texture" path="res://gfx/manmade/titlescreen/bg.png">  </resource>
 				<color> 1, 1, 1, 1 </color>
@@ -77,13 +86,13 @@
 				<resource  resource_type="Script" path="res://scenes/title/titlescreen.gd">  </resource>
 				<dictionary  shared="false">
 					<string> "__editor_plugin_screen__" </string>
-					<string> "Script" </string>
+					<string> "2D" </string>
 					<string> "__editor_plugin_states__" </string>
 					<dictionary  shared="false">
 						<string> "2D" </string>
 						<dictionary  shared="false">
 							<string> "ofs" </string>
-							<vector2> -98.4015, -147.502 </vector2>
+							<vector2> -115.836, -143.445 </vector2>
 							<string> "snap_grid" </string>
 							<bool> False </bool>
 							<string> "snap_offset" </string>
@@ -103,7 +112,7 @@
 							<string> "snap_step" </string>
 							<vector2> 10, 10 </vector2>
 							<string> "zoom" </string>
-							<real> 0.9025 </real>
+							<real> 1 </real>
 						</dictionary>
 						<string> "3D" </string>
 						<dictionary  shared="false">
@@ -229,6 +238,8 @@
 				<real> 386 </real>
 				<real> 380 </real>
 				<resource  resource_type="Texture" path="res://gfx/manmade/titlescreen/exit.png">  </resource>
+				<resource  resource_type="AudioStream" path="res://sound/music/The Dark Amulet_0.ogg">  </resource>
+				<real> 0 </real>
 			</array>
 			<string> "version" </string>
 			<int> 1 </int>
