@@ -3,10 +3,12 @@
 #If the character has a visual representation (actor), it knows it.
 
 class Character:
+	var name = "UNNAMED"
+	var texturename
 	var hp
 	var dmg
 	var factionid
-	var globalnode
+	var global
 	var actor = null
 	
 	var mp
@@ -21,18 +23,18 @@ class Character:
 		hp  = shp
 		dmg = sdmg
 		factionid = sfac
-		globalnode = sglobalnode
+		global = sglobalnode
 		maxmp = 5
 		maxap = 1
 		reset_mp()
 		reset_ap()
 	
 	func add_ability(abilityname):
-		var ability = globalnode.abilitymanager.getAbility(abilityname)
+		var ability = global.abilitymanager.get_ability(abilityname)
 		abilities.append(ability)
 	
 	func is_pc():
-		if factionid == globalnode.playerfactionid : 
+		if factionid == global.playerfactionid : 
 			return true
 		else:
 			return false
@@ -69,7 +71,6 @@ class Character:
 			actor.queue_free()
 			actor = null
 	
-	
 	func reset_mp():
 		mp = maxmp
 	
@@ -79,6 +80,11 @@ class Character:
 	func end_turn():
 		reset_mp()
 		reset_ap()
+	
+	func create_actor():
+		var texture = global.texturemanager.get_texture(texturename)
+		actor = load("res://scenes/common/movable.gd").Actor.new(texture,self)
+		return actor
 
 
 
@@ -169,5 +175,14 @@ class AbilityManager:
 		flame.add_effect(attackeffect)
 		abilities['flame'] = flame
 	
-	func getAbility(abilityname):
+	func get_ability(abilityname):
 		return abilities[abilityname]
+
+class TextureManager:
+	var textures = {}
+	func _init():
+		textures['human_m'] = load("res://gfx/player/base/human_m.png")
+		textures['siren'] = load("res://gfx/dc-mon/siren.png")
+	
+	func get_texture(name):
+		return textures[name]

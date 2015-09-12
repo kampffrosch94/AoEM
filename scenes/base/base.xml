@@ -202,11 +202,13 @@
 							<string> "current" </string>
 							<int> 1 </int>
 							<string> "sources" </string>
-							<array  len="4" shared="false">
+							<array  len="6" shared="false">
 								<string> "res://scenes/base/base.gd" </string>
 								<string> "res://scenes/common/character.gd" </string>
 								<string> "res://scenes/battlemap/battlemap.gd" </string>
 								<string> "res://scenes/common/movable.gd" </string>
+								<string> "res://scenes/common/gamestate.gd" </string>
+								<string> "res://scenes/common/global.gd" </string>
 							</array>
 						</dictionary>
 					</dictionary>

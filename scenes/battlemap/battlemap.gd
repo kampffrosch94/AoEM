@@ -78,7 +78,6 @@ func _ready():
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 
-
 func init_blocking_tiles():
 	blockingtiles = [-1] #no tile
 	var ids = get_tileset().get_tiles_ids()

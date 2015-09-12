@@ -9,11 +9,11 @@
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
-			<int> 2 </int>
+			<int> 3 </int>
 			<string> "conns" </string>
-			<int_array  len="12"> 				1, 0, 50, 49, 2, 0, 3, 0, 50, 51, 2, 0 </int_array>
+			<int_array  len="18"> 				1, 0, 51, 50, 2, 0, 2, 0, 51, 52, 2, 0, 3, 0, 51, 53, 2, 0 </int_array>
 			<string> "names" </string>
-			<string_array  len="52">
+			<string_array  len="54">
 				<string> "title" </string>
 				<string> "TextureFrame" </string>
 				<string> "_import_path" </string>
@@ -63,14 +63,16 @@
 				<string> "stream/volume_db" </string>
 				<string> "stream/autoplay" </string>
 				<string> "stream/paused" </string>
+				<string> "newgameButton1" </string>
 				<string> "_on_continueButton_pressed" </string>
 				<string> "pressed" </string>
+				<string> "_on_newgameButton_pressed" </string>
 				<string> "_on_exitButton_pressed" </string>
 			</string_array>
 			<string> "node_count" </string>
-			<int> 5 </int>
+			<int> 6 </int>
 			<string> "nodes" </string>
-			<int_array  len="271"> 				-1, -1, 1, 0, -1, 21, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 4, 8, 5, 9, 0, 10, 0, 11, 0, 12, 0, 13, 1, 14, 1, 15, 6, 16, 6, 17, 2, 18, 7, 19, 8, 20, 9, 21, 10, 22, 11, 0, 0, 0, 24, 23, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 12, 7, 13, 8, 14, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 15, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 39, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 18, 7, 19, 8, 20, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 21, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 40, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 22, 7, 23, 8, 24, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 25, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 42, 41, -1, 7, 2, 0, 43, 26, 44, 9, 45, 1, 46, 27, 47, 1, 48, 9, 0 </int_array>
+			<int_array  len="338"> 				-1, -1, 1, 0, -1, 21, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 7, 4, 8, 5, 9, 0, 10, 0, 11, 0, 12, 0, 13, 1, 14, 1, 15, 6, 16, 6, 17, 2, 18, 7, 19, 8, 20, 9, 21, 10, 22, 11, 0, 0, 0, 24, 23, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 12, 7, 13, 8, 14, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 15, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 39, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 18, 7, 19, 8, 20, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 21, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 24, 40, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 22, 7, 23, 8, 24, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 25, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0, 0, 0, 42, 41, -1, 7, 2, 0, 43, 26, 44, 9, 45, 1, 46, 27, 47, 1, 48, 9, 0, 0, 0, 24, 49, -1, 30, 2, 0, 3, 1, 4, 2, 5, 2, 6, 3, 25, 12, 26, 18, 7, 19, 8, 20, 9, 0, 10, 0, 11, 0, 12, 0, 13, 9, 14, 1, 15, 6, 16, 6, 17, 2, 27, 9, 28, 9, 29, 9, 30, 9, 31, 21, 32, 16, 33, 16, 34, 16, 35, 16, 36, 16, 37, 17, 38, 8, 0 </int_array>
 			<string> "variants" </string>
 			<array  len="28" shared="false">
 				<node_path> "" </node_path>
@@ -86,7 +88,7 @@
 				<resource  resource_type="Script" path="res://scenes/title/titlescreen.gd">  </resource>
 				<dictionary  shared="false">
 					<string> "__editor_plugin_screen__" </string>
-					<string> "2D" </string>
+					<string> "Script" </string>
 					<string> "__editor_plugin_states__" </string>
 					<dictionary  shared="false">
 						<string> "2D" </string>
@@ -211,9 +213,10 @@
 							<string> "current" </string>
 							<int> 0 </int>
 							<string> "sources" </string>
-							<array  len="2" shared="false">
+							<array  len="3" shared="false">
 								<string> "res://scenes/title/titlescreen.gd" </string>
 								<string> "res://scenes/common/scenemanager.gd" </string>
+								<string> "res://scenes/common/gamestate.gd" </string>
 							</array>
 						</dictionary>
 					</dictionary>

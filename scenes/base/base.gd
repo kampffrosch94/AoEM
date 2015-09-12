@@ -5,11 +5,11 @@ func _ready():
 
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
-	char.add_ability(attack)
-	char.add_ability(flame)
-	var texture = load("res://gfx/player/base/human_m.png")
+	char.add_ability('attack')
+	char.add_ability('flame')
+	char.texturename = "human_m"
 	
-	var apc = load("res://scenes/common/movable.gd").Actor.new(texture,char)
+	var apc = char.create_actor()
 	apc.set_pos(Vector2(50,50))
 	add_child(apc)
 

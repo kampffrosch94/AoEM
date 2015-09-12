@@ -4,7 +4,7 @@
 
 class Movable:
 	extends Sprite
-	var map
+	var map = null
 	var coord
 
 	
@@ -80,7 +80,8 @@ class Actor:
 		add_child(highlight)
 
 	func _exit_tree():
-		map.remove_actor(self)
+		if map != null:
+			map.remove_actor(self)
 
 	func _draw():
 		draw_string ( get_node("/root/global").defaultfont, Vector2(22,10), str(char.hp), Color(255,0,0))
