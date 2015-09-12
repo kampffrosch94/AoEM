@@ -55,41 +55,26 @@ func _ready():
 
 	#create Actors
 	var charscript = load("res://scenes/common/character.gd")
-	
-	var attack = charscript.Ability.new("regular Attack",load("res://gfx/spells/earth/maxwells_silver_hammer.png"),1)
-	var attackeffectscaling = charscript.Scaling.new()
-	attackeffectscaling.dmgscaling = 1
-	var attackeffect = charscript.Effect.new(0,attackeffectscaling)
-	attack.add_effect(attackeffect)
-	
-	var healingscaling = charscript.Scaling.new()
-	healingscaling.base = -5
-	var healingeffect = charscript.Effect.new(0,healingscaling)
-	
-	
-	var flame = charscript.Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),30)
-	flame.add_effect(attackeffect)
-
 
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
-	char.add_ability(attack)
-	char.add_ability(flame)
+	char.add_ability('attack')
+	char.add_ability('flame')
 	var texture = load("res://gfx/player/base/human_m.png")
 	var act = createActor(texture,char, 20,10)
 	act.add_equip(load("res://gfx/sword.png"))
 	
 	var char  = charscript.Character.new(10,2,0,get_node("/root/global"))
-	char.add_ability(attack)
+	char.add_ability('attack')
 	var texture = load("res://gfx/player/base/human_m.png")
 	createActor(texture,char, 1,2)
 	
 	var char  = charscript.Character.new(4,1,1,get_node("/root/global"))
-	char.add_ability(attack)
+	char.add_ability('attack')
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,2)
 	
 	var char  = charscript.Character.new(4,1,1,get_node("/root/global"))
-	char.add_ability(attack)
+	char.add_ability('attack')
 	var texture = load("res://gfx/dc-mon/siren.png")
 	createActor(texture,char, 3,3)
 

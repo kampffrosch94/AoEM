@@ -2,7 +2,6 @@
 #It contains all the stats and abilities.
 #If the character has a visual representation (actor), it knows it.
 
-
 class Character:
 	var hp
 	var dmg
@@ -28,7 +27,8 @@ class Character:
 		reset_mp()
 		reset_ap()
 	
-	func add_ability(ability):
+	func add_ability(abilityname):
+		var ability = globalnode.abilitymanager.getAbility(abilityname)
 		abilities.append(ability)
 	
 	func is_pc():
@@ -79,6 +79,8 @@ class Character:
 	func end_turn():
 		reset_mp()
 		reset_ap()
+
+
 
 class Ability:
 	var name
@@ -137,6 +139,35 @@ class Scaling:
 
 	func scale(user):
 		return base + user.dmg * dmgscaling
+	
+	func _init():
+		pass
 
-
-
+class AbilityManager:
+	var abilityeffects
+	var abilities
+	
+	func _init():
+		abilityeffects = {}
+		abilities = {}
+		print("Error incoming")
+		var attackscaling = load("res://scenes/common/character.gd").Scaling.new()
+		attackscaling.dmgscaling = 1
+		var attackeffect = load("res://scenes/common/character.gd").Effect.new(0,attackscaling)
+		abilityeffects['attackeffect'] = attackeffect
+		
+		var healscaling = load("res://scenes/common/character.gd").Scaling.new()
+		healscaling.base = -5
+		var healeffect = load("res://scenes/common/character.gd").Effect.new(0,healscaling)
+		abilityeffects['healeffect'] = healeffect
+		
+		var attack = load("res://scenes/common/character.gd").Ability.new("regular Attack",load("res://gfx/spells/earth/maxwells_silver_hammer.png"),1)
+		attack.add_effect(attackeffect)
+		abilities['attack'] = attack
+		
+		var flame = load("res://scenes/common/character.gd").Ability.new("Flame",load("res://gfx/spells/fire/flame_tongue.png"),30)
+		flame.add_effect(attackeffect)
+		abilities['flame'] = flame
+	
+	func getAbility(abilityname):
+		return abilities[abilityname]

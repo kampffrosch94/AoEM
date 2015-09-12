@@ -246,7 +246,7 @@
 						<string> "Script" </string>
 						<dictionary  shared="false">
 							<string> "current" </string>
-							<int> 0 </int>
+							<int> 7 </int>
 							<string> "sources" </string>
 							<array  len="8" shared="false">
 								<string> "res://scenes/battlemap/battlemap.gd" </string>

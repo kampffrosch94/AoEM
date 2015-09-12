@@ -200,10 +200,13 @@
 						<string> "Script" </string>
 						<dictionary  shared="false">
 							<string> "current" </string>
-							<int> 0 </int>
+							<int> 1 </int>
 							<string> "sources" </string>
-							<array  len="1" shared="false">
+							<array  len="4" shared="false">
 								<string> "res://scenes/base/base.gd" </string>
+								<string> "res://scenes/common/character.gd" </string>
+								<string> "res://scenes/battlemap/battlemap.gd" </string>
+								<string> "res://scenes/common/movable.gd" </string>
 							</array>
 						</dictionary>
 					</dictionary>

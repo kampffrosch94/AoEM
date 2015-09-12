@@ -67,7 +67,7 @@ class Actor:
 	var char
 	var highlight
 
-	func _init(bodytexture,schar, scoord):
+	func _init(bodytexture,schar, scoord = null):
 		char = schar;
 		char.actor = self
 		set_texture(bodytexture)
